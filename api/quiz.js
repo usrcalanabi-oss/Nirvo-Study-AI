@@ -1,5 +1,38 @@
 import { authenticatedUser, consumeAiBudget } from '../lib/auth.js';
-import { RESOURCE_DOMAINS, outputText, outputSources, parseJson } from './_education.js';
+import { cloudflareAiConfigured, cloudflareChat } from '../lib/cloudflare-ai.js';
+import { parseJson } from './_education.js';
+
 const CLASSES=new Set(['Class 6','Class 7','Class 8','Class 9','Class 10','Class 11','Class 12']);
-const SUBJECTS=['Mathematics','Science','Physics','Chemistry','Biology','English','Social Science','Malayalam','Hindi','Computer Science'];
-export default async function handler(req,res){res.setHeader('Cache-Control','no-store');if(req.method!=='POST'){res.setHeader('Allow','POST');return res.status(405).json({error:'Use POST to create a quiz.'})}const user=await authenticatedUser(req);if(!user)return res.status(401).json({error:'Sign in before generating an AI quiz.'});const key=process.env.OPENAI_API_KEY;if(!key)return res.status(503).json({error:'The site owner has not configured the AI provider yet.'});try{const b=typeof req.body==='string'?JSON.parse(req.body):req.body||{};const grade=CLASSES.has(b.class)?b.class:null,board=String(b.board||'').slice(0,40),subject=SUBJECTS.includes(b.subject)?b.subject:null,chapter=String(b.chapter||'').trim().slice(0,100),language=b.language==='Malayalam'?'Malayalam':'English';if(!grade||!subject||!board)return res.status(400).json({error:'Choose a valid class, board and subject.'});if(!await consumeAiBudget(req))return res.status(429).json({error:'Daily AI limit reached or the Supabase usage setup is missing.'});const schema={type:'object',properties:{questions:{type:'array',items:{type:'object',properties:{question:{type:'string'},options:{type:'array',items:{type:'string'}},answer:{type:'integer'},explanation:{type:'string'}},required:['question','options','answer','explanation'],additionalProperties:false}}},required:['questions'],additionalProperties:false};const prompt=`Create exactly five original multiple-choice learning questions for ${grade}, ${board}, subject ${subject}${chapter?`, chapter/topic ${chapter}`:''}. Match the level and terminology of that class. For Kerala State, search official Kerala SCERT resources first; for CBSE search official CBSE academic resources first. Use the web search tool over the allowed sources to confirm relevant topic/chapter context. Avoid claiming a source confirms a question unless it actually does. Include four distinct short options per question, answer as zero-based option index 0–3, and a concise teaching explanation. Return only the required JSON. Reply in ${language}. Questions should test school subject knowledge, never IQ or general intelligence. If the available sources do not establish a chapter, make clear this is general practice for the selected class and topic.`;const upstream=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:JSON.stringify({model:process.env.OPENAI_MODEL||'gpt-4.1-mini',instructions:'You are Nirvo, a careful school quiz author. Do not copy protected question banks or reproduce their questions. Create new questions and state uncertainty honestly.',tools:[{type:'web_search',search_context_size:'low',filters:{allowed_domains:RESOURCE_DOMAINS}}],text:{format:{type:'json_schema',name:'nirvo_quiz',strict:true,schema}},input:prompt,max_output_tokens:1800,store:false})});if(!upstream.ok){const errorText=await upstream.text();console.error('quiz provider error',upstream.status,errorText.slice(0,400));return res.status(502).json({error:upstream.status===429?'The AI provider is rate-limiting requests. Try later.':'The AI could not make this quiz. Check model access and try again.'})}const data=await upstream.json();const parsed=parseJson(outputText(data));if(!Array.isArray(parsed.questions)||parsed.questions.length!==5)return res.status(502).json({error:'The AI did not return exactly five questions. Please try again.'});for(const q of parsed.questions){if(typeof q.question!=='string'||!Array.isArray(q.options)||q.options.length!==4||!Number.isInteger(q.answer)||q.answer<0||q.answer>3||typeof q.explanation!=='string')return res.status(502).json({error:'The AI returned an invalid quiz. Please try again.'})}return res.status(200).json({questions:parsed.questions,sources:outputSources(data),board,grade,subject,chapter})}catch(e){console.error('quiz API error',e);return res.status(502).json({error:'Could not create quiz. Please try again.'})}}
+const SUBJECTS=['Mathematics','Science','Physics','Chemistry','Biology','English','Social Science','Malayalam','Hindi','Computer Science','Economics'];
+
+export default async function handler(request,response){
+  response.setHeader('Cache-Control','no-store');
+  if(request.method!=='POST'){response.setHeader('Allow','POST');return response.status(405).json({error:'Use POST to create a quiz.'})}
+  if(!await authenticatedUser(request))return response.status(401).json({error:'Sign in before generating an AI quiz.'});
+  if(!cloudflareAiConfigured())return response.status(503).json({error:'The free AI connection is not configured yet.'});
+  try{
+    const body=typeof request.body==='string'?JSON.parse(request.body):request.body||{};
+    const grade=CLASSES.has(body.class)?body.class:null;
+    const board=String(body.board||'').slice(0,40);
+    const subject=SUBJECTS.includes(body.subject)?body.subject:null;
+    const chapter=String(body.chapter||'').trim().slice(0,100);
+    const language=body.language==='Malayalam'?'Malayalam':'English';
+    if(!grade||!subject||!board)return response.status(400).json({error:'Choose a valid class, board and subject.'});
+    if(!await consumeAiBudget(request))return response.status(429).json({error:'Daily AI limit reached or the Supabase usage setup is missing.'});
+    const prompt=`Create exactly five original multiple-choice learning questions for ${grade}, ${board}, subject ${subject}${chapter?`, chapter/topic ${chapter}`:''}. Reply in ${language}. Do not copy existing question banks. Match the requested school level, use four distinct short options per question, set answer to the zero-based correct option index (0–3), and include a concise teaching explanation. This service cannot browse live sources, so do not claim the questions are verified against a current textbook or syllabus. Return only valid JSON in this shape: {"questions":[{"question":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."}]} with exactly five questions.`;
+    const text=await cloudflareChat([
+      {role:'system',content:'You are Nirvo, a careful school quiz author. Create new educational questions. Do not claim official syllabus verification. Output only the requested JSON object.'},
+      {role:'user',content:prompt}
+    ],{maxTokens:1800});
+    const parsed=parseJson(text);
+    if(!Array.isArray(parsed.questions)||parsed.questions.length!==5)return response.status(502).json({error:'The AI did not return exactly five questions. Please try again.'});
+    for(const question of parsed.questions){
+      if(typeof question.question!=='string'||!Array.isArray(question.options)||question.options.length!==4||!Number.isInteger(question.answer)||question.answer<0||question.answer>3||typeof question.explanation!=='string')return response.status(502).json({error:'The AI returned an invalid quiz. Please try again.'});
+    }
+    return response.status(200).json({questions:parsed.questions,sources:[],board,grade,subject,chapter,verified:false});
+  }catch(error){
+    console.error('Cloudflare AI quiz error',error.message);
+    return response.status(error.message.includes('not configured')?503:502).json({error:error.message||'Could not create the quiz. Please try again.'});
+  }
+}
+
