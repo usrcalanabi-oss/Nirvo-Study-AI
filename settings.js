@@ -1,0 +1,6 @@
+const settingsDialog=document.querySelector('#settingsDialog'),themeButtons=[...document.querySelectorAll('[data-theme-choice]')],reduceMotion=document.querySelector('#reduceMotion');
+function applyTheme(theme,save=false){const value=['light','forest','night'].includes(theme)?theme:'light';if(value==='light')document.documentElement.removeAttribute('data-theme');else document.documentElement.dataset.theme=value;for(const button of themeButtons)button.setAttribute('aria-pressed',String(button.dataset.themeChoice===value));if(save)try{localStorage.setItem('nirvo-theme',value)}catch{}}
+document.querySelector('#settingsButton').addEventListener('click',()=>settingsDialog.showModal());for(const button of themeButtons)button.addEventListener('click',()=>applyTheme(button.dataset.themeChoice,true));document.querySelector('#settingsDialog .dialog-close button').addEventListener('click',()=>settingsDialog.close());
+try{applyTheme(localStorage.getItem('nirvo-theme')||'light');reduceMotion.checked=localStorage.getItem('nirvo-reduce-motion')==='true'}catch{applyTheme('light')}
+function setMotionPreference(){document.documentElement.classList.toggle('reduce-motion',reduceMotion.checked);try{localStorage.setItem('nirvo-reduce-motion',String(reduceMotion.checked))}catch{}}
+reduceMotion.addEventListener('change',setMotionPreference);setMotionPreference();
