@@ -5,7 +5,7 @@ Nirvo is a study-planning website with a Cloudflare Workers AI connection. The p
 ## Honest feature notes
 
 - The AI generates explanations and questions; it does not certify syllabus accuracy. Check answers against the current textbook and teacher guidance.
-- Live web search and automatic chapter-name lookup are not connected in the free AI setup. Students should enter the chapter title from their textbook. Nirvo must not present model-generated chapter names as verified facts.
+- Live web search is an optional feature in the Study AI chat. It uses Cloudflare Web Search API through AI Gateway, not the free Workers AI daily allocation. It requires AI Gateway credits or a search-provider key configured on the gateway; searches may incur separate charges. Students should leave the switch off unless the account owner has configured and approved this service. Automatic chapter-name lookup is separate; students should enter the chapter title from their textbook. Nirvo must not present model-generated chapter names as verified facts.
 - Image feedback can misread handwriting or marks. It is not official grading or a verified progress-card assessment. The selected image is sent to Cloudflare for analysis and is not saved by Nirvo.
 - Cloudflare Workers AI has a free daily allocation of 10,000 Neurons. When the daily allowance or service capacity is exhausted, AI requests can fail until availability returns. Do not upgrade to a paid plan if you need to keep this free.
 - AI requests are also capped at 20 per signed-in account per UTC day through the Supabase SQL setup.
@@ -33,6 +33,14 @@ Because this project is made by a Class 10 student, ask a parent or guardian to 
 6. Redeploy the Vercel project so the new server variables take effect.
 
 The site uses Cloudflare's OpenAI-compatible chat-completions endpoint for study chat and quizzes, and its Llama Vision model endpoint for image feedback. The first use of the vision model may require the account owner to accept Meta's model terms in Cloudflare. Do that with a parent/guardian before using image feedback.
+
+### Optional: enable Internet Search
+
+1. In Cloudflare, open AI Gateway and use the `default` gateway (or set `CLOUDFLARE_AI_GATEWAY_ID`).
+2. Ensure the account has AI Gateway credits, or add a supported Ceramic.ai, Exa or Linkup provider key to the gateway. The search API is separately billed; it is not covered by the Workers AI free daily Neurons allocation.
+3. The existing `CLOUDFLARE_API_TOKEN` must include **Account → Workers AI → Read** and **Account → AI Gateway → Read** permissions. Keep it server-side in Vercel.
+4. Optional Vercel variables: `CLOUDFLARE_AI_GATEWAY_ID` (defaults to `default`), `CLOUDFLARE_WEB_SEARCH_PROVIDER` (`ceramic`, `exa` or `linkup`; defaults to `ceramic`), and `CLOUDFLARE_WEB_SEARCH_BYOK_ALIAS` if you configured a provider key alias.
+5. Redeploy. In the Study AI chat, turn on **Search the internet** when you want current web sources. The answer will show source links. If the search service is not configured, the site will display an error rather than pretending it searched.
 
 ## 2. Finish Supabase sign-in and AI usage limits
 
