@@ -42,8 +42,14 @@ function drawResources(){
  document.getElementById('sslcSelectedDescription').textContent=subject.desc;
  const source=document.getElementById('sslcSubjectSource');source.href=subject.url;source.textContent='Open '+subject.name+' resources ↗';
  const q=(search.value||'').toLowerCase();
- const visible=types.filter(t=>(t.title+' '+t.sub+' '+t.tag+' '+subject.name).toLowerCase().includes(q));
- grid.innerHTML=visible.map(t=>'<article class="sslc-resource-card"><div class="sslc-resource-icon">'+t.icon+'</div><div><span>'+t.tag+'</span><h4>'+t.title+'</h4><p>'+t.sub+'</p></div><a href="'+subject.url+'" target="_blank" rel="noopener noreferrer" aria-label="Open '+t.title+' for '+subject.name+'">Open ↗</a></article>').join('')||'<p class="sslc-no-results">No matching resource category. Try another search.</p>';
+ const subjectTypes=types.map(t=>({...t,url:subject.url}));
+ if(subject.id==='ss1'||subject.id==='ss2'){
+  subjectTypes.push({title:'Easy D+ Module · English Medium',sub:'Simplified, exam-focused key ideas from Social Science I & II · all chapters',icon:'D+',tag:'EASY D+ · EM',url:'https://www.biovisions.in/2026/02/sslc-social-science-i-ii-easy-d-module.html'});
+  subjectTypes.push({title:'Easy D+ Module · Malayalam Medium',sub:'ലളിതമായ പരീക്ഷാ റിവിഷൻ · സോഷ്യൽ സയൻസ് I & II എല്ലാ പാഠഭാഗങ്ങളും',icon:'D+',tag:'EASY D+ · MM',url:'https://www.biovisions.in/2026/01/sslc-social-science-i-ii-easy-d-module.html'});
+  subjectTypes.push({title:'Chapter-wise study materials',sub:'Open Social Science '+(subject.id==='ss1'?'I':'II')+' chapter resources and lesson materials',icon:'▤',tag:'CHAPTERWISE',url:subject.id==='ss1'?'https://www.biovisions.in/2026/02/sslc-social-science-i-examination-2026.html':'https://www.biovisions.in/2026/02/sslc-social-science-ii-examination-2026.html'});
+ }
+ const visible=subjectTypes.filter(t=>(t.title+' '+t.sub+' '+t.tag+' '+subject.name).toLowerCase().includes(q));
+ grid.innerHTML=visible.map(t=>'<article class="sslc-resource-card"><div class="sslc-resource-icon">'+t.icon+'</div><div><span>'+t.tag+'</span><h4>'+t.title+'</h4><p>'+t.sub+'</p></div><a href="'+t.url+'" target="_blank" rel="noopener noreferrer" aria-label="Open '+t.title+' for '+subject.name+'">Open ↗</a></article>').join('')||'<p class="sslc-no-results">No matching resource category. Try another search.</p>';
 }
 function draw(){drawTabs();drawResources()}
 document.getElementById('sslcExamResourceLinks').innerHTML=exams.map(e=>'<a href="'+e.url+'" target="_blank" rel="noopener noreferrer"><span><b>'+esc(e.title)+'</b><small>'+esc(e.sub)+'</small></span><i>↗</i></a>').join('');
