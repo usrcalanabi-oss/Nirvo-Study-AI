@@ -37,7 +37,7 @@ alert('Complete one five-question practice quiz for this class and one selected 
 }
 const focusOne=$('scienceFocusOne').value,focusTwo=$('scienceFocusTwo').value;
 if(focusOne&&focusTwo&&focusOne===focusTwo){alert('Choose two different science subjects.');return}if(focusOne&&!chosen.includes(focusOne))chosen.push(focusOne);if(focusTwo&&!chosen.includes(focusTwo))chosen.push(focusTwo);
-const daily=Number($('smartHours').value),start=min($('smartSchoolEnd').value)+35,end=min($('smartBed').value)-35;
+const daily=Number($('smartHours').value),wake=min($('smartWake').value),schoolStart=min($('smartSchoolStart').value),schoolEnd=min($('smartSchoolEnd').value),start=schoolEnd+35,end=min($('smartBed').value)-35,morningAvailable=schoolStart-wake>=45,morningMinutes=morningAvailable?20:0,eveningDaily=Math.max(25,daily-morningMinutes);
 if(end<=start){alert('Adjust school finish and bedtime to create an evening study window.');return}
 const topics={};chosen.forEach(s=>topics[s]=[]);
 $('smartTopics').value.split('\n').map(x=>x.trim()).filter(Boolean).forEach(line=>{
@@ -46,11 +46,12 @@ const subject=m&&chosen.find(s=>s.toLowerCase()===m[1].trim().toLowerCase());
 if(subject)topics[subject].push(m[2].trim());else topics[chosen[0]].push(line);
 });
 chosen.forEach(s=>{if(!topics[s].length)topics[s]=['Revise key concepts','Complete textbook exercises']});
-const scores={};data.marks.forEach(m=>scores[m.subject]=m.got/m.max);
+const scores={};data.marks.forEach(m=>scores[m.subject]=m.got/m.max);scores[diagnosticSubject]=diagnostic.score/diagnostic.total;
 const priority=chosen.slice().sort((a,b)=>((scores[a]??.75)-(focusOne===a||focusTwo===a?.2:0))-((scores[b]??.75)-(focusOne===b||focusTwo===b?.2:0))),idx={};chosen.forEach(s=>idx[s]=0);
 const count=Number($('smartDays').value),week=days.slice(0,count).map((day,d)=>{
-let clock=start,remaining=daily,tasks=[];
-for(let slot=0;slot<Math.min(3,Math.ceil(daily/40))&&remaining>=25;slot++){
+let clock=start,remaining=eveningDaily,tasks=[];
+if(morningAvailable){const ms=priority[d%priority.length],mt=topics[ms][idx[ms]++%topics[ms].length];tasks.push({id:day+'-morning-'+ms,subject:ms,topic:'Morning recall: '+mt,minutes:20,from:fmt(wake+15),to:fmt(wake+35)});}
+for(let slot=0;slot<Math.min(3,Math.ceil(eveningDaily/40))&&remaining>=25;slot++){
 const subject=priority[(d+slot)%priority.length],topic=topics[subject][idx[subject]++%topics[subject].length];
 const base=subject==='Mathematics'?45:science.includes(subject)?40:['English','Malayalam I','Malayalam II','Hindi','Arabic','Tamil','Kannada'].includes(subject)?30:35;
 const duration=Math.min(base+Math.min(15,Math.floor(topic.length/55)*5),remaining,end-clock);
