@@ -85,10 +85,10 @@
   <section id="sslcLearnHub" class="sslc-learn-hub panel">
   <div class="sslc-module-head"><div><span class="eyebrow">NIRVO · SSLC LEARNING LIBRARY</span><h2>Chapter notes <em>your way.</em></h2><p>Select a SCERT subject, the language for your notes, a study level and the exact chapter title.</p></div><div class="sslc-module-badge">A+<small> / D+</small></div></div>
   <div class="sslc-learn-controls">
-    <label>Subject<select id="learnSubject"></select></label>
+    <label>Subject<select id="learnSubject"><option value="">Select a subject</option><option value="Mathematics">Mathematics</option><option value="Physics">Physics</option><option value="Chemistry">Chemistry</option><option value="Biology">Biology</option><option value="Social Science I">Social Science I</option><option value="Social Science II">Social Science II</option><option value="English Reader">English Reader</option><option value="ICT">ICT</option><option value="Malayalam – Kerala Padavali (AT)">Malayalam – Kerala Padavali (AT)</option><option value="Malayalam – Basic Padavali (BT)">Malayalam – Basic Padavali (BT)</option><option value="Tamil Reader – Kerala Padavali (AT)">Tamil Reader – Kerala Padavali (AT)</option><option value="Tamil Reader – Basic Padavali (BT)">Tamil Reader – Basic Padavali (BT)</option><option value="Kannada Reader – Kerala Padavali (AT)">Kannada Reader – Kerala Padavali (AT)</option><option value="Kannada Reader – Basic Padavali (BT)">Kannada Reader – Basic Padavali (BT)</option><option value="Hindi Reader">Hindi Reader</option><option value="Arabic Reader – Academic">Arabic Reader – Academic</option><option value="Arabic Reader – Oriental">Arabic Reader – Oriental</option><option value="Urdu Reader">Urdu Reader</option><option value="Sanskrit Reader – Academic">Sanskrit Reader – Academic</option><option value="Sanskrit Reader – Oriental">Sanskrit Reader – Oriental</option></select></label>
     <label>Notes language<select id="learnLanguage"><option>English</option><option>മലയാളം</option><option>हिन्दी</option><option>தமிழ்</option><option>ಕನ್ನಡ</option><option>اردو</option><option>العربية</option><option>संस्कृतम्</option></select></label>
     <label>Study level<select id="learnLevel"><option value="dplus">D+ · Simple revision</option><option value="aplus">A+ · Detailed exam preparation</option></select></label>
-    <label>Chapter<select id="learnChapter"><option value="">Chapter list is being verified</option></select></label>
+    <label>Chapter<select id="learnChapter"><option value="">Select a chapter</option></select></label>
     <label class="sslc-learn-manual">Chapter name<input id="learnChapterName" type="text" maxlength="120" placeholder="Enter the exact chapter title from your SCERT textbook"></label>
   </div>
   <div class="sslc-learn-levels">
@@ -96,6 +96,7 @@
     <button type="button" class="sslc-level-card" data-level="aplus"><span>A+</span><b>Full chapter preparation</b><small>Detailed notes · important questions · model answers</small></button>
   </div>
   <div class="sslc-learn-actions"><button type="button" class="button primary" id="learnOpenResources">Open official SCERT textbook list ↗</button><button type="button" class="button" id="learnMakeNotes">Prepare notes in Study AI</button></div>
+  <div id="sslcOriginalNotes" class="sslc-original-notes" aria-live="polite"><p>Select a subject and chapter to view NIRVO original notes.</p></div>
   <p class="sslc-learn-note" id="learnStatus" aria-live="polite">Choose a subject and enter the exact chapter title from your current SCERT textbook. Official textbook links open SCERT Kerala.</p>
   <div class="sslc-learn-features"><article><b>D+ module</b><p>Short, easy-to-revise explanations, key terms and quick questions.</p></article><article><b>A+ module</b><p>Detailed lesson coverage, exam-focused questions and structured answers.</p></article><article><b>Language support</b><p>Choose the medium that helps you understand the lesson comfortably.</p></article></div>
 </section>
