@@ -121,3 +121,28 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .generate-notes-button{display:block;margin:0 10px 6px auto;border:1px solid #dce6f4;border-radius:20px;background:#f3f7fd;color:#315f9d;padding:7px 11px;font:600 9px 'DM Sans',sans-serif;cursor:pointer}
 .generate-notes-button:hover{background:#e8f0fc}
 @media(max-width:560px){.profile-detail-list{grid-template-columns:1fr}.generate-notes-button{margin-right:10px}}
+
+
+/* NIRVO Smart Study Planner */
+.smart-study-section{margin:20px 0;padding:clamp(17px,3vw,28px);background:#f7f9fc;border:1px solid var(--line);border-radius:8px}
+.smart-study-heading{max-width:780px;margin-bottom:18px}.smart-study-heading h2{font:500 clamp(24px,3vw,34px)/1.2 var(--serif);margin:8px 0;color:#253b5a}.smart-study-heading h2 em{color:#3975c7;font-weight:400}.smart-study-heading p,.smart-help{font-size:10px;line-height:1.7;color:#7d899b}
+.smart-study-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:12px 0}
+.smart-study-panel{min-width:0;padding:18px;background:#fff;border:1px solid var(--line);border-radius:7px}
+.smart-panel-title{display:grid;gap:5px;margin-bottom:14px}.smart-panel-title span{font-size:8px;font-weight:800;letter-spacing:1.2px;color:#7290b6}.smart-panel-title b{font:19px var(--serif);color:#304563}
+.smart-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:12px 0}
+.smart-subject-title{margin-top:20px}.smart-subject-list{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.smart-subject-chip{border:1px solid #dfe6ef;background:#fff;color:#586b84;border-radius:20px;padding:7px 10px;font-size:9px;cursor:pointer}
+.smart-subject-chip[aria-pressed=true]{background:#eaf2ff;border-color:#9db9e2;color:#285b9d}
+.smart-topic-field{margin:14px 0}.smart-topic-field textarea,.smart-study-panel textarea,.smart-study-panel input,.smart-study-panel select,.smart-search-row input{width:100%;border:1px solid #e2e8f0;border-radius:5px;background:#fff;color:#34445f;padding:9px;font:11px 'DM Sans',sans-serif;min-width:0}
+.smart-topic-field textarea{line-height:1.7;resize:vertical}.smart-study-panel .input-field{font-size:9px}
+.smart-study-panel .button{font-size:10px;padding:10px 13px}
+.smart-plan-output{min-height:240px}.smart-empty{min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;color:#8290a4}.smart-empty>span{font-size:25px;color:#4c83c8}.smart-empty b{font:18px var(--serif);color:#344b6c}.smart-empty small{font-size:9px}
+.smart-week-day{margin:9px 0;padding:11px;border:1px solid #e7edf5;border-radius:6px;background:#fbfcfe}.smart-week-day h4{margin:0 0 8px;font-size:11px;color:#31577f}.smart-task{display:grid;grid-template-columns:19px 62px 1fr;gap:8px;align-items:start;padding:8px 0;border-top:1px solid #edf0f5;font-size:9px;color:#61728a}.smart-task input{width:14px;height:14px;margin:1px 0;accent-color:#3d78bd}.smart-task time{color:#4b7db8;font-weight:700}.smart-task b{display:block;color:#354c6b;font-size:10px}.smart-task small{display:block;margin-top:3px;color:#8994a4;font-size:8px}.smart-task.done b{text-decoration:line-through;color:#8a98a9}.smart-progress-summary{margin:10px 0;padding:10px;border-radius:5px;background:#eef4fc;color:#496587;font-size:9px;line-height:1.7}
+.smart-study-panel .small-button{margin-top:7px}.smart-study-panel button:disabled{opacity:.45;cursor:not-allowed}
+.smart-upload{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border:1px dashed #b9c9df;border-radius:5px;color:#426d9f;font-size:10px;cursor:pointer}.smart-upload input{display:none}
+.smart-photo-preview img{display:block;max-width:100%;max-height:220px;object-fit:contain;margin:10px 0;border:1px solid #e5ebf3;border-radius:5px}
+.smart-marks-table{margin-top:12px;overflow:auto}.smart-marks-table table{width:100%;border-collapse:collapse;font-size:9px}.smart-marks-table th,.smart-marks-table td{padding:7px;text-align:left;border-bottom:1px solid #edf0f5}.smart-marks-table th{color:#8090a5;font-size:8px}.smart-marks-table td{color:#4e617b}
+.smart-review-result{margin-top:12px;padding:10px;border-radius:5px;background:#f2f6fb;color:#536985;font-size:9px;line-height:1.7}
+.smart-search-panel{margin-top:13px}.smart-search-row{display:flex;gap:8px}.smart-search-row input{flex:1}.smart-web-results{display:grid;gap:8px;margin-top:12px}.smart-web-result{padding:11px;border:1px solid #e7edf5;border-radius:5px;background:#fbfcfe}.smart-web-result a{color:#2e65a8;font-size:11px;font-weight:700;text-decoration:none}.smart-web-result p{margin:5px 0 0;color:#748298;font-size:9px;line-height:1.6}.smart-web-result small{display:block;margin-top:5px;color:#9aa4b2;font-size:8px}
+@media(max-width:760px){.smart-study-grid{grid-template-columns:1fr}.smart-search-row{display:grid}.smart-search-row .button{width:100%}}
+@media(max-width:420px){.smart-form-grid{grid-template-columns:1fr}.smart-study-section{padding:13px}.smart-study-panel{padding:13px}.smart-task{grid-template-columns:18px 53px 1fr}}
