@@ -8,12 +8,12 @@ ta:['ஒவ்வொரு நாளின் சிறிய முயற்ச
 kn:['ಪ್ರತಿದಿನದ ಸಣ್ಣ ಪ್ರಯತ್ನಗಳು ದೊಡ್ಡ ಬದಲಾವಣೆಯನ್ನು ತರುತ್ತವೆ.','ಇಂದಿನ ಪರಿಶ್ರಮ ನಾಳೆಯ ಆತ್ಮವಿಶ್ವಾಸ.','ಪೂರ್ಣತೆಯಿಗಿಂತ ನಿರಂತರ ಪ್ರಗತಿ ಮುಖ್ಯ.']
 };
 const ideas=['Learn one useful skill for 15 minutes today.','Teach a family member one thing you learned.','Make a tiny budget: needs, savings and wants.','Try a 10-minute walk without scrolling.','Write one question you want to investigate this week.','Organise tomorrow’s books and set one clear goal.','Watch one science explanation, then explain it in your own words.'];
-let started=Date.now(),seconds=0,phone=0;
+let seconds=0,phone=0;
 try{const d=JSON.parse(localStorage.getItem(store)||'{}');seconds=d.seconds||0;phone=d.phone||0;}catch{}
-const today=new Date().toISOString().slice(0,10);
+const now=new Date(),today=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
 try{const d=JSON.parse(localStorage.getItem(store)||'{}');if(d.day!==today){seconds=0;phone=0;}}catch{}
 function persist(){try{localStorage.setItem(store,JSON.stringify({day:today,seconds,phone}))}catch{}}
-function tick(){if(!document.hidden){seconds++;persist()}const h=String(Math.floor(seconds/3600)).padStart(2,'0'),m=String(Math.floor(seconds%3600/60)).padStart(2,'0'),s=String(seconds%60).padStart(2,'0');$('nirvoScreenTime').textContent=h+':'+m+':'+s;$('screenStatus').textContent=document.hidden?'Paused while this tab is hidden.':'Counting while this NIRVO tab is visible.'}
+function tick(){if(!document.hidden&&document.hasFocus()){seconds++;persist()}const h=String(Math.floor(seconds/3600)).padStart(2,'0'),m=String(Math.floor(seconds%3600/60)).padStart(2,'0'),s=String(seconds%60).padStart(2,'0');$('nirvoScreenTime').textContent=h+':'+m+':'+s;$('screenStatus').textContent=(document.hidden||!document.hasFocus())?'Paused while NIRVO is hidden or not focused.':'Counting while this NIRVO tab is visible and focused.'}
 setInterval(tick,1000);document.addEventListener('visibilitychange',tick);tick();
 $('phoneScreenTime').value=phone||'';$('phoneScreenSummary').textContent=phone?'Manual Android screen-time entry: '+phone+' minutes today.':'Enter the total shown in Android Settings → Digital Wellbeing.';
 $('savePhoneTime').addEventListener('click',()=>{const n=Number($('phoneScreenTime').value);if(!Number.isFinite(n)||n<0||n>1440)return alert('Enter minutes from 0 to 1440.');phone=n;persist();$('phoneScreenSummary').textContent='Saved manually: '+phone+' minutes today. This number comes from your Android report.'});
