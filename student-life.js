@@ -46,4 +46,23 @@ sports:{id:'JlqzSTigJ4Q',title:'5 effective beginner football skills · Unisport
 };
 $('loadVideo').addEventListener('click',()=>{const v=videos[$('videoCategory').value];$('lifeVideoFrame').src='https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0';$('videoCaption').textContent=v.title});
 document.querySelectorAll('.life-music-choice').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.life-music-choice').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('spotifyFrame').src='https://open.spotify.com/embed/playlist/'+b.dataset.playlist+'?utm_source=generator&theme=0'}));
+
+/* NIRVO Focus Studio: local-first timer, check-ins and reflection */
+const plusKey='nirvo-focus-studio-v1';let plus={day:'',habits:{},sessions:0,streak:0,lastDay:'',win:'',improve:''};
+try{plus={...plus,...JSON.parse(localStorage.getItem(plusKey)||'{}')}}catch{}
+const dateKey=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const todayKey=dateKey();if(plus.day!==todayKey){plus.day=todayKey;plus.habits={};plus.sessions=0;}
+const savePlus=()=>{try{localStorage.setItem(plusKey,JSON.stringify(plus))}catch{}};
+const modes={study:25*60,break:5*60,long:15*60};let mode='study',remaining=modes.study,running=false,interval=null;
+const clock=$('focusClock'),status=$('focusStatus'),startBtn=$('focusStart');
+function paintClock(){clock.textContent=String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0');startBtn.textContent=running?'Pause':'Start '+(mode==='study'?'focus':'break');}
+function setMode(next){mode=next;running=false;clearInterval(interval);remaining=modes[mode];document.querySelectorAll('.focus-mode').forEach(b=>b.classList.toggle('active',b.dataset.focusMode===mode));status.textContent=mode==='study'?'Ready for one focused session?':'Take a comfortable break away from your screen.';paintClock();}
+document.querySelectorAll('.focus-mode').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.focusMode)));
+startBtn.addEventListener('click',()=>{if(running){running=false;clearInterval(interval);status.textContent='Paused. Resume whenever you are ready.';paintClock();return;}running=true;status.textContent=mode==='study'?'You are in a focus session. One task at a time.':'Break time. Stretch, rest your eyes and move around.';paintClock();interval=setInterval(()=>{remaining=Math.max(0,remaining-1);paintClock();if(remaining===0){running=false;clearInterval(interval);if(mode==='study'){plus.sessions++;savePlus();$('focusSessions').textContent=plus.sessions;status.textContent='Focus session complete. Take a break and celebrate the effort.';}else status.textContent='Break complete. Return only when you feel ready.';paintClock();}},1000);});
+$('focusReset').addEventListener('click',()=>{running=false;clearInterval(interval);remaining=modes[mode];status.textContent='Timer reset. Ready when you are.';paintClock();});
+function renderHabits(){const checks=[...document.querySelectorAll('[data-habit]')];checks.forEach(c=>c.checked=!!plus.habits[c.dataset.habit]);const n=checks.filter(c=>c.checked).length;$('habitProgressBar').style.width=(n/checks.length*100)+'%';$('habitProgressText').textContent=n+' of '+checks.length+' completed';$('habitStreak').textContent=plus.streak>0?'Consistency streak: '+plus.streak+' day'+(plus.streak===1?'':'s')+'.':'Your consistency streak starts today.';$('focusSessions').textContent=plus.sessions;$('habitDate').textContent=todayKey;}
+document.querySelectorAll('[data-habit]').forEach(c=>c.addEventListener('change',()=>{plus.habits[c.dataset.habit]=c.checked;const count=Object.values(plus.habits).filter(Boolean).length;if(count>=4&&plus.lastDay!==todayKey){const y=new Date();y.setDate(y.getDate()-1);const prev=y.getFullYear()+'-'+String(y.getMonth()+1).padStart(2,'0')+'-'+String(y.getDate()).padStart(2,'0');plus.streak=plus.lastDay===prev?plus.streak+1:1;plus.lastDay=todayKey;}savePlus();renderHabits();}));
+$('weeklyWin').value=plus.win||'';$('weeklyImprove').value=plus.improve||'';$('saveReflection').addEventListener('click',()=>{plus.win=$('weeklyWin').value.trim();plus.improve=$('weeklyImprove').value.trim();savePlus();$('reflectionStatus').textContent='Saved on this device.';});
+renderHabits();paintClock();
+
 })();
