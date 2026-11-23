@@ -37,7 +37,7 @@ alert('Complete one five-question practice quiz for this class and one selected 
 }
 const focusOne=$('scienceFocusOne').value,focusTwo=$('scienceFocusTwo').value;
 if(focusOne&&focusTwo&&focusOne===focusTwo){alert('Choose two different science subjects.');return}if(focusOne&&!chosen.includes(focusOne))chosen.push(focusOne);if(focusTwo&&!chosen.includes(focusTwo))chosen.push(focusTwo);
-const daily=Number($('smartHours').value),wake=min($('smartWake').value),schoolStart=min($('smartSchoolStart').value),schoolEnd=min($('smartSchoolEnd').value),start=schoolEnd+35,end=min($('smartBed').value)-35,morningAvailable=schoolStart-wake>=45,morningMinutes=morningAvailable?20:0,eveningDaily=Math.max(25,daily-morningMinutes);
+const daily=Number($('smartHours').value),wake=min($('smartWake').value),schoolStart=min($('smartSchoolStart').value),schoolEnd=min($('smartSchoolEnd').value),workoutMinutes=Number($('smartWorkoutMinutes')?.value||0),workoutWhen=$('smartWorkoutWhen')?.value||'after',start=schoolEnd+35+(workoutMinutes&&workoutWhen==='after'?workoutMinutes+5:0),end=min($('smartBed').value)-35,morningAvailable=schoolStart-wake>=45,morningMinutes=morningAvailable?20:0,eveningDaily=Math.max(25,daily-morningMinutes);
 if(end<=start){alert('Adjust school finish and bedtime to create an evening study window.');return}
 const topics={};chosen.forEach(s=>topics[s]=[]);
 $('smartTopics').value.split('\n').map(x=>x.trim()).filter(Boolean).forEach(line=>{
@@ -49,8 +49,8 @@ chosen.forEach(s=>{if(!topics[s].length)topics[s]=['Revise key concepts','Comple
 const scores={};data.marks.forEach(m=>scores[m.subject]=m.got/m.max);scores[diagnosticSubject]=diagnostic.score/diagnostic.total;
 const priority=chosen.slice().sort((a,b)=>{const pa=(scores[a]??.75)-((focusOne===a||focusTwo===a)?0.2:0);const pb=(scores[b]??.75)-((focusOne===b||focusTwo===b)?0.2:0);return pa-pb}),idx={};chosen.forEach(s=>idx[s]=0);
 const count=Number($('smartDays').value),week=days.slice(0,count).map((day,d)=>{
-let clock=start,remaining=eveningDaily,tasks=[];
-if(morningAvailable){const ms=priority[d%priority.length],mt=topics[ms][idx[ms]++%topics[ms].length];tasks.push({id:day+'-morning-'+ms,subject:ms,topic:'Morning recall: '+mt,minutes:20,from:fmt(wake+15),to:fmt(wake+35)});}
+let clock=start,remaining=eveningDaily,tasks=[];\nif(workoutMinutes&&workoutWhen==='after'){tasks.push({id:day+'-workout',subject:'HEALTH',topic:'Workout · warm-up, comfortable movement and cool-down',minutes:workoutMinutes,from:fmt(schoolEnd+10),to:fmt(schoolEnd+10+workoutMinutes)});}
+if(workoutMinutes&&workoutWhen==='morning'){tasks.push({id:day+'-workout',subject:'HEALTH',topic:'Workout · warm-up, comfortable movement and cool-down',minutes:workoutMinutes,from:fmt(wake+5),to:fmt(wake+5+workoutMinutes)});}\nif(morningAvailable){const ms=priority[d%priority.length],mt=topics[ms][idx[ms]++%topics[ms].length];const recallStart=wake+15+(workoutMinutes&&workoutWhen==='morning'?workoutMinutes+5:0);if(recallStart+20<=schoolStart)tasks.push({id:day+'-morning-'+ms,subject:ms,topic:'Morning recall: '+mt,minutes:20,from:fmt(recallStart),to:fmt(recallStart+20)});}
 for(let slot=0;slot<Math.min(3,Math.ceil(eveningDaily/40))&&remaining>=25;slot++){
 const subject=priority[(d+slot)%priority.length],topic=topics[subject][idx[subject]++%topics[subject].length];
 const base=subject==='Mathematics'?45:science.includes(subject)?40:['English','Malayalam I','Malayalam II','Hindi','Arabic','Tamil','Kannada'].includes(subject)?30:35;
@@ -61,7 +61,7 @@ clock+=duration+10;remaining-=duration;
 }
 return {day,tasks};
 });
-data.plan={grade:$('smartClass').value,board:$('smartBoard').value,language:$('smartLanguage').value,subjects:chosen,daily,week,diagnostic:{subject:diagnostic.subject,score:diagnostic.score,total:diagnostic.total}};
+data.plan={grade:$('smartClass').value,board:$('smartBoard').value,language:$('smartLanguage').value,subjects:chosen,daily,workoutMinutes,workoutWhen,week,diagnostic:{subject:diagnostic.subject,score:diagnostic.score,total:diagnostic.total}};
 data.tasks={};save();renderPlan();
 }
 function renderPlan(){
@@ -75,7 +75,7 @@ $('downloadSmartPlan').disabled=false;
 $('smartClass').addEventListener('change',()=>{renderSubjects();const q=$('quizClass');if(q&&[...q.options].some(o=>o.value===$('smartClass').value)){q.value=$('smartClass').value;q.dispatchEvent(new Event('change'))}});$('smartBoard').addEventListener('change',()=>{const b=$('quizBoard');if(b&&[...b.options].some(o=>o.value===$('smartBoard').value)){b.value=$('smartBoard').value;b.dispatchEvent(new Event('change'))}});
 $('buildSmartPlan').addEventListener('click',createPlan);
 $('downloadSmartPlan').addEventListener('click',()=>{
-if(!data.plan)return;const p=data.plan,lines=['NIRVO SMART STUDY PLAN',p.grade+' · '+p.board+' · '+p.language,'Subjects: '+p.subjects.join(', '),'','WEEKLY TIMETABLE',...p.week.flatMap(d=>['',d.day,...d.tasks.map(t=>t.from+'–'+t.to+' | '+t.subject+' | '+t.topic+' | '+t.minutes+' min')])];
+if(!data.plan)return;const p=data.plan,lines=['NIRVO SMART STUDY PLAN',p.grade+' · '+p.board+' · '+p.language,'Subjects: '+p.subjects.join(', '),'Workout: '+(p.workoutMinutes||0)+' minutes ('+(p.workoutWhen||'not set')+')','','WEEKLY TIMETABLE',...p.week.flatMap(d=>['',d.day,...d.tasks.map(t=>t.from+'–'+t.to+' | '+t.subject+' | '+t.topic+' | '+t.minutes+' min')])];
 const a=document.createElement('a'),u=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}));a.href=u;a.download='nirvo-weekly-study-plan.txt';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
 });
 function preview(input,target){$(input).addEventListener('change',e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/'))return alert('Choose an image file.');const u=URL.createObjectURL(f);$(target).innerHTML='<img src="'+u+'" alt="Uploaded photo preview"><small class="smart-help">Private local preview only. Marks are not automatically read from this image.</small>'})}
