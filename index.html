@@ -83,20 +83,20 @@
     </div>
   </section>
   <section id="sslcLearnHub" class="sslc-learn-hub panel">
-  <div class="sslc-module-head"><div><span class="eyebrow">NIRVO · SSLC LEARNING LIBRARY</span><h2>Chapter notes <em>your way.</em></h2><p>Select a subject, language, study level and chapter to find the right revision material.</p></div><div class="sslc-module-badge">A+<small> / D+</small></div></div>
+  <div class="sslc-module-head"><div><span class="eyebrow">NIRVO · SSLC LEARNING LIBRARY</span><h2>Chapter notes <em>your way.</em></h2><p>Select a SCERT subject, the language for your notes, a study level and the exact chapter title.</p></div><div class="sslc-module-badge">A+<small> / D+</small></div></div>
   <div class="sslc-learn-controls">
     <label>Subject<select id="learnSubject"></select></label>
-    <label>Language / medium<select id="learnLanguage"><option>English</option><option>മലയാളം</option><option>हिन्दी</option><option>தமிழ்</option><option>ಕನ್ನಡ</option><option>اردو</option><option>العربية</option><option>संस्कृतम्</option></select></label>
+    <label>Notes language<select id="learnLanguage"><option>English</option><option>മലയാളം</option><option>हिन्दी</option><option>தமிழ்</option><option>ಕನ್ನಡ</option><option>اردو</option><option>العربية</option><option>संस्कृतम्</option></select></label>
     <label>Study level<select id="learnLevel"><option value="dplus">D+ · Simple revision</option><option value="aplus">A+ · Detailed exam preparation</option></select></label>
-    <label>Chapter<select id="learnChapter"><option value="">Choose / type a chapter below</option></select></label>
-    <label class="sslc-learn-manual">Chapter name<input id="learnChapterName" type="text" maxlength="120" placeholder="Enter the exact chapter title from your textbook"></label>
+    <label>Chapter<select id="learnChapter"><option value="">Chapter list is being verified</option></select></label>
+    <label class="sslc-learn-manual">Chapter name<input id="learnChapterName" type="text" maxlength="120" placeholder="Enter the exact chapter title from your SCERT textbook"></label>
   </div>
   <div class="sslc-learn-levels">
     <button type="button" class="sslc-level-card active" data-level="dplus"><span>D+</span><b>Easy revision</b><small>Simple explanations · key points · quick recall</small></button>
     <button type="button" class="sslc-level-card" data-level="aplus"><span>A+</span><b>Full chapter preparation</b><small>Detailed notes · important questions · model answers</small></button>
   </div>
-  <div class="sslc-learn-actions"><button type="button" class="button primary" id="learnOpenResources">Open selected chapter resources ↗</button><button type="button" class="button" id="learnMakeNotes">Prepare notes in Study AI</button></div>
-  <p class="sslc-learn-note" id="learnStatus" aria-live="polite">Choose a subject and chapter. Chapter titles must match your current SCERT textbook; external reference links open the original publisher's material.</p>
+  <div class="sslc-learn-actions"><button type="button" class="button primary" id="learnOpenResources">Open official SCERT textbook list ↗</button><button type="button" class="button" id="learnMakeNotes">Prepare notes in Study AI</button></div>
+  <p class="sslc-learn-note" id="learnStatus" aria-live="polite">Choose a subject and enter the exact chapter title from your current SCERT textbook. Official textbook links open SCERT Kerala.</p>
   <div class="sslc-learn-features"><article><b>D+ module</b><p>Short, easy-to-revise explanations, key terms and quick questions.</p></article><article><b>A+ module</b><p>Detailed lesson coverage, exam-focused questions and structured answers.</p></article><article><b>Language support</b><p>Choose the medium that helps you understand the lesson comfortably.</p></article></div>
 </section>
 <section id="sslcModule" class="sslc-module panel">
@@ -107,7 +107,7 @@
     </div>
     <div class="sslc-module-tools">
       <label class="sslc-search"><span>⌕</span><input id="sslcResourceSearch" type="search" placeholder="Find a subject or resource type…"></label>
-      <span class="sslc-source-note">Resource source: Bio-Vision · opens the original material</span>
+      <span class="sslc-source-note">Textbook source: SCERT Kerala · official textbook editions</span>
     </div>
     <div id="sslcSubjectTabs" class="sslc-subject-tabs" role="tablist" aria-label="SSLC subjects"></div>
     <div class="sslc-selected-subject">
