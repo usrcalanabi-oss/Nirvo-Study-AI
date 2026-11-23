@@ -13,7 +13,8 @@
       { id:'practice', label:'Practice', icon:'◎', selectors:['#sslcArena','#quiz','#recallLab'] },
       { id:'life', label:'Student life', icon:'✦', selectors:['#lifeHub'] },
       { id:'ai', label:'Study AI', icon:'✳', selectors:['#tutor','.document-panel'] },
-      { id:'library', label:'Downloads', icon:'⇩', selectors:['#downloads','#term2-plans'] }
+      { id:'library', label:'Downloads', icon:'⇩', selectors:['#downloads','#term2-plans'] },
+      { id:'contact', label:'Contact', icon:'↗', selectors:['footer'] }
     ];
 
     const nav = document.createElement('nav');
@@ -46,6 +47,8 @@
       });
       document.body.dataset.nirvoPage=page;
       if(updateHash && history.replaceState) history.replaceState(null,'',page==='home'?'#overview':'#'+page);
+      const pageNames={home:'Home',planner:'Exam planner',smart:'Smart study plan',learn:'SSLC learning library',practice:'Practice arena',life:'Student life',ai:'Study AI',library:'Downloads',contact:'Contact'};
+      document.title='NIRVO · '+(pageNames[page]||'Study AI');
       window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
     };
 
@@ -57,9 +60,10 @@
       a.addEventListener('click',()=>show('home'));
     });
     document.querySelectorAll('.topbar nav').forEach(el=>el.setAttribute('aria-hidden','true'));
+    window.addEventListener('hashchange',()=>{const key=location.hash.slice(1);show(hashMap[key]||'home',false)});
 
     const initial = location.hash.slice(1);
-    const hashMap = {overview:'home',planner:'planner',smartStudy:'smart',sslcLearnHub:'learn',sslcModule:'learn',sslcArena:'practice',quiz:'practice',recallLab:'practice',lifeHub:'life',tutor:'ai',downloads:'library',pdfLibrary:'learn','term2-plans':'library',aboutNirvo:'home'};
+    const hashMap = {overview:'home',planner:'planner',smartStudy:'smart',sslcLearnHub:'learn',sslcModule:'learn',sslcArena:'practice',quiz:'practice',recallLab:'practice',lifeHub:'life',tutor:'ai',downloads:'library',pdfLibrary:'learn','term2-plans':'library',aboutNirvo:'home',contact:'contact'};
     show(hashMap[initial]||'home',false);
 
     // Internal links switch workspace first, then scroll to the requested item.
