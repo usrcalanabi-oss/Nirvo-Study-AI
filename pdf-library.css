@@ -49,3 +49,17 @@
 [hidden]{display:none!important}
 @media(max-width:900px){.library-class-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.library-class-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.library-class-tile{min-height:145px;padding:15px}.library-inner-controls{grid-template-columns:1fr 1fr}.library-inner-controls .pdf-library-field:last-child{grid-column:1/-1}.library-embed-head{display:block}.library-embed-head .library-back{margin-bottom:12px}#libraryResourceFrame{height:560px}}
+
+
+/* NIRVO-owned internal resource reader: never loads third-party pages */
+.nirvo-local-resource-content{min-height:190px;padding:20px;border:1px solid #e3eaf3;border-radius:11px;background:linear-gradient(145deg,#fff,#f7faff)}
+.nirvo-resource-empty{max-width:680px;margin:10px auto;text-align:center;padding:20px}
+.nirvo-resource-empty h5{margin:12px 0 8px;color:#203b60;font-size:20px}
+.nirvo-resource-empty p{margin:0 auto 15px;max-width:570px;color:#718096;font-size:12px;line-height:1.8}
+.nirvo-resource-status{display:inline-flex;padding:8px 11px;border-radius:20px;background:#edf4ff;color:#315f9d;font-size:9px;font-weight:800;letter-spacing:.6px}
+.nirvo-resource-article{max-width:820px;margin:auto;color:#344761;font-size:14px;line-height:1.8}
+.nirvo-pdf-viewer iframe{display:block;width:100%;height:680px;border:1px solid #e4ebf4;border-radius:9px}
+.nirvo-local-download{display:inline-flex;margin-top:12px;padding:10px 14px;border-radius:8px;background:#2f68b5;color:#fff;text-decoration:none;font-size:11px;font-weight:700}
+.pdf-library-actions button{background:#edf3fc;color:#285b9d}
+.pdf-library-actions button:first-child{background:#2f68b5;color:#fff}
+@media(max-width:600px){.nirvo-local-resource-content{padding:12px}.nirvo-resource-empty{padding:12px 4px}.nirvo-pdf-viewer iframe{height:540px}}
