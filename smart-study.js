@@ -30,6 +30,12 @@ renderMarks();
 function createPlan(){
 const chosen=[...$('smartSubjects').querySelectorAll('[aria-pressed="true"]')].map(b=>b.dataset.sub);
 if(!chosen.length){alert('Select at least one subject.');return}
+let diagnostic=null;try{diagnostic=JSON.parse(localStorage.getItem('nirvo-last-quiz')||'null')}catch{}
+if(!diagnostic||diagnostic.grade!==$('smartClass').value||!chosen.includes(diagnostic.subject)){
+alert('Complete one five-question practice quiz for this class and one selected subject first. Your quiz result will help NIRVO start your study plan.');$('quiz').scrollIntoView({behavior:'smooth',block:'start'});return;
+}
+const focusOne=$('scienceFocusOne').value,focusTwo=$('scienceFocusTwo').value;
+if(focusOne&&focusTwo&&focusOne===focusTwo){alert('Choose two different science subjects.');return}
 const daily=Number($('smartHours').value),start=min($('smartSchoolEnd').value)+35,end=min($('smartBed').value)-35;
 if(end<=start){alert('Adjust school finish and bedtime to create an evening study window.');return}
 const topics={};chosen.forEach(s=>topics[s]=[]);
@@ -40,7 +46,7 @@ if(subject)topics[subject].push(m[2].trim());else topics[chosen[0]].push(line);
 });
 chosen.forEach(s=>{if(!topics[s].length)topics[s]=['Revise key concepts','Complete textbook exercises']});
 const scores={};data.marks.forEach(m=>scores[m.subject]=m.got/m.max);
-const priority=chosen.slice().sort((a,b)=>(scores[a]??.75)-(scores[b]??.75)),idx={};chosen.forEach(s=>idx[s]=0);
+const priority=chosen.slice().sort((a,b)=>((scores[a]??.75)-(focusOne===a||focusTwo===a?.2:0))-((scores[b]??.75)-(focusOne===b||focusTwo===b?.2:0))),idx={};chosen.forEach(s=>idx[s]=0);
 const count=Number($('smartDays').value),week=days.slice(0,count).map((day,d)=>{
 let clock=start,remaining=daily,tasks=[];
 for(let slot=0;slot<Math.min(3,Math.ceil(daily/40))&&remaining>=25;slot++){
@@ -53,7 +59,7 @@ clock+=duration+10;remaining-=duration;
 }
 return {day,tasks};
 });
-data.plan={grade:$('smartClass').value,board:$('smartBoard').value,language:$('smartLanguage').value,subjects:chosen,daily,week};
+data.plan={grade:$('smartClass').value,board:$('smartBoard').value,language:$('smartLanguage').value,subjects:chosen,daily,week,diagnostic:{subject:diagnostic.subject,score:diagnostic.score,total:diagnostic.total}};
 data.tasks={};save();renderPlan();
 }
 function renderPlan(){
