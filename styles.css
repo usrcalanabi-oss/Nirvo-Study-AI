@@ -186,3 +186,44 @@ html{scroll-padding-top:84px}body{letter-spacing:.005em;-webkit-font-smoothing:a
 @media(min-width:621px) and (max-width:1100px){.topbar{padding-left:2.5%;padding-right:2.5%;gap:12px}.wordmark img{width:118px}.topbar nav{flex:1;min-width:0;display:flex;gap:clamp(8px,1.1vw,14px);overflow-x:auto;white-space:nowrap;scrollbar-width:none;justify-content:flex-start}.topbar nav::-webkit-scrollbar{display:none}.topbar nav a{font-size:9px;flex:0 0 auto}.top-right{gap:9px}.status{display:none}.app main{padding-left:3.5%;padding-right:3.5%}}
 @media(max-width:620px){.topbar nav{display:none}.app main{width:100%;max-width:100%;padding-left:max(4%,env(safe-area-inset-left));padding-right:max(4%,env(safe-area-inset-right))}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-grid,.workspace-grid,.ai-section,.download-grid{grid-template-columns:minmax(0,1fr)}.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.plan-list{grid-template-columns:minmax(0,1fr)}.panel,.quick-card,.welcome-card{min-width:0}.ai-section{padding:20px}.quiz-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.quiz-card,.quiz-intro{min-width:0}.recall-grid{grid-template-columns:minmax(0,1fr)}.arena-setup{grid-template-columns:minmax(0,1fr)}.arena-info,.arena-setup>.button{grid-column:auto}}
 @media(max-width:380px){.form-grid,.quiz-controls{grid-template-columns:minmax(0,1fr)}.metrics{gap:7px}.metric-card{padding:12px;min-width:0}.metric-card>b{font-size:14px}.welcome h1{font-size:28px}.arena-score-stats{gap:7px}.arena-score-stats span{min-width:0;padding:8px}}
+
+
+/* NIRVO SSLC Learning Module */
+.sslc-module{margin-top:18px;padding:22px 22px 18px;background:#fff;border:1px solid var(--line);border-radius:8px}
+.sslc-module-head{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.sslc-module-head h2{font:500 27px/1.15 var(--serif);margin:8px 0 7px;color:var(--ink)}
+.sslc-module-head h2 em,.sslc-exam-links h3 em{color:#3975c7;font-weight:400}
+.sslc-module-head p,.sslc-exam-links p{max-width:640px;color:#8490a2;font-size:10px;line-height:1.75;margin:0}
+.sslc-module-badge{width:58px;height:58px;border-radius:16px;background:#edf3fc;color:#356db8;display:flex;align-items:center;justify-content:center;flex-direction:column;font:24px var(--serif);flex-shrink:0}
+.sslc-module-badge small{font:7px 'DM Sans',sans-serif;letter-spacing:1.5px}
+.sslc-module-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0 12px}
+.sslc-search{display:flex;align-items:center;gap:8px;max-width:330px;width:100%;height:36px;padding:0 11px;border:1px solid #e5eaf1;border-radius:5px;color:#8a97aa}
+.sslc-search input{border:0;outline:0;min-width:0;width:100%;font:10px 'DM Sans',sans-serif;color:#33445f;background:transparent}
+.sslc-source-note{font-size:8px;color:#98a2b1}
+.sslc-subject-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:thin}
+.sslc-subject-tab{white-space:nowrap;border:1px solid #e5eaf1;background:#fff;color:#718097;border-radius:5px;padding:8px 10px;font:9px 'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px}
+.sslc-subject-tab span{font-size:13px;color:#4e7ebd}
+.sslc-subject-tab.active{background:#edf4fc;border-color:#b9cde8;color:#2f64a9}
+.sslc-selected-subject{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px;background:#f7f9fc;border:1px solid #edf0f5;border-radius:6px}
+.sslc-selected-subject h3{font:20px var(--serif);margin:5px 0}
+.sslc-selected-subject p{font-size:9px;color:#8994a5;margin:0;line-height:1.5}
+.sslc-selected-subject .button{white-space:nowrap;font-size:9px;padding:9px 12px}
+.sslc-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.sslc-resource-card{min-width:0;border:1px solid #edf0f4;border-radius:5px;padding:12px;display:grid;grid-template-columns:30px 1fr;gap:9px;align-items:start}
+.sslc-resource-icon{width:29px;height:29px;border-radius:8px;background:#eef3fb;color:#3975bd;display:grid;place-items:center;font:14px var(--serif)}
+.sslc-resource-card>div:nth-child(2)>span{font-size:7px;letter-spacing:1px;color:#8b9ab0}
+.sslc-resource-card h4{font-size:10px;margin:4px 0;color:#34445e}
+.sslc-resource-card p{font-size:8px;line-height:1.5;color:#909aaa;margin:0}
+.sslc-resource-card>a{grid-column:2;font-size:8px;color:#3975bd;text-decoration:none;justify-self:start;margin-top:2px}
+.sslc-no-results{font-size:9px;color:#8c97a8;padding:10px}
+.sslc-exam-links{margin-top:17px;padding-top:16px;border-top:1px solid #edf0f4;display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:start}
+.sslc-exam-links h3{font:20px var(--serif);margin:6px 0}
+.sslc-exam-resource-links{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.sslc-exam-resource-links a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;border:1px solid #edf0f4;border-radius:5px;text-decoration:none;color:#40536e}
+.sslc-exam-resource-links a span{display:grid;gap:4px}
+.sslc-exam-resource-links b{font-size:9px}
+.sslc-exam-resource-links small{font-size:8px;color:#929dad}
+.sslc-exam-resource-links i{font-style:normal;color:#3975bd}
+.sslc-module-footnote{font-size:8px;line-height:1.6;color:#9aa3b1;margin:14px 0 0}
+@media(max-width:760px){.sslc-resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sslc-exam-links{grid-template-columns:1fr;gap:12px}}
+@media(max-width:620px){.sslc-module{padding:17px 13px}.sslc-module-head h2{font-size:23px}.sslc-module-tools{align-items:flex-start;flex-direction:column}.sslc-search{max-width:none}.sslc-selected-subject{align-items:flex-start;flex-direction:column}.sslc-selected-subject .button{width:100%;text-align:center;justify-content:center}.sslc-resource-grid{grid-template-columns:1fr}.sslc-exam-resource-links{grid-template-columns:1fr 1fr}.sslc-subject-tab{padding:8px}.sslc-module-badge{width:48px;height:48px}}
