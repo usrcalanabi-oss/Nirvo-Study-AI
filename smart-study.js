@@ -47,7 +47,7 @@ if(subject)topics[subject].push(m[2].trim());else topics[chosen[0]].push(line);
 });
 chosen.forEach(s=>{if(!topics[s].length)topics[s]=['Revise key concepts','Complete textbook exercises']});
 const scores={};data.marks.forEach(m=>scores[m.subject]=m.got/m.max);scores[diagnosticSubject]=diagnostic.score/diagnostic.total;
-const priority=chosen.slice().sort((a,b)=>((scores[a]??.75)-(focusOne===a||focusTwo===a?.2:0))-((scores[b]??.75)-(focusOne===b||focusTwo===b?.2:0))),idx={};chosen.forEach(s=>idx[s]=0);
+const priority=chosen.slice().sort((a,b)=>{const pa=(scores[a]??.75)-((focusOne===a||focusTwo===a)?0.2:0);const pb=(scores[b]??.75)-((focusOne===b||focusTwo===b)?0.2:0);return pa-pb}),idx={};chosen.forEach(s=>idx[s]=0);
 const count=Number($('smartDays').value),week=days.slice(0,count).map((day,d)=>{
 let clock=start,remaining=eveningDaily,tasks=[];
 if(morningAvailable){const ms=priority[d%priority.length],mt=topics[ms][idx[ms]++%topics[ms].length];tasks.push({id:day+'-morning-'+ms,subject:ms,topic:'Morning recall: '+mt,minutes:20,from:fmt(wake+15),to:fmt(wake+35)});}
