@@ -19,22 +19,38 @@
 
   <section id="pdfLibrary" class="pdf-library" aria-labelledby="pdfLibraryTitle">
     <div class="pdf-library-head">
-      <div><span class="eyebrow">FREE KERALA STATE SYLLABUS LIBRARY</span><h2 id="pdfLibraryTitle">Your textbooks. Your next chapter.</h2><p>Choose a class, medium and subject to find full textbooks, chapter notes, question answers and study guides. Free access, no sign-in.</p></div>
-      <span class="pdf-library-count" id="libraryCount">SUBJECT RESOURCES</span>
+      <div><span class="eyebrow">FREE KERALA STATE SYLLABUS LIBRARY</span><h2 id="pdfLibraryTitle">Explore your class library.</h2><p>Choose your class first. Each class has its own study space with subjects, textbooks and chapter resources. Browse resources without leaving NIRVO.</p></div>
+      <span class="pdf-library-count" id="libraryCount">5 CLASSES</span>
     </div>
-    <div class="pdf-library-controls">
-      <label class="pdf-library-field">CLASS
-        <select id="libraryClass"><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10" selected>Class 10</option></select>
-      </label>
-      <label class="pdf-library-field">MEDIUM
-        <select id="libraryMedium"><option value="Malayalam">Malayalam</option><option value="English" selected>English</option><option value="Tamil">Tamil</option><option value="Kannada">Kannada</option></select>
-      </label>
-      <label class="pdf-library-field">SUBJECT<select id="librarySubject"><option value="all">All subjects</option></select></label>\n      <label class="pdf-library-field">SEARCH RESOURCES
-        <input id="librarySearch" type="search" placeholder="Search textbooks, chapters, notes…">
-      </label>
+    <div id="libraryClassHome" class="library-class-grid" aria-label="Choose your class">
+      <button class="library-class-tile" type="button" data-grade="6"><span>01</span><b>Class 6</b><small>Textbooks · Notes · Chapters</small><i>Explore ↗</i></button>
+      <button class="library-class-tile" type="button" data-grade="7"><span>02</span><b>Class 7</b><small>Textbooks · Notes · Chapters</small><i>Explore ↗</i></button>
+      <button class="library-class-tile" type="button" data-grade="8"><span>03</span><b>Class 8</b><small>Textbooks · Notes · Chapters</small><i>Explore ↗</i></button>
+      <button class="library-class-tile" type="button" data-grade="9"><span>04</span><b>Class 9</b><small>Textbooks · Notes · Chapters</small><i>Explore ↗</i></button>
+      <button class="library-class-tile" type="button" data-grade="10"><span>05</span><b>Class 10</b><small>Textbooks · Notes · Chapters</small><i>Explore ↗</i></button>
     </div>
-    <div class="pdf-library-results" id="libraryResults" aria-live="polite"></div>
-    <p class="pdf-library-note">Textbooks open on Kerala SCERT. Chapter-wise resources open on BioVision, an independent study-resource directory. The selected medium is a guide for you: check the source page carefully because not every subject has materials in every medium. Verify the current textbook edition before studying.</p>
+    <div id="libraryClassPage" class="library-class-page" hidden>
+      <button type="button" id="libraryBack" class="library-back">← All classes</button>
+      <div class="library-page-heading"><div><span class="eyebrow">NIRVO CLASS LIBRARY</span><h3 id="libraryGradeTitle">Class 10</h3><p>Choose a subject and browse the available resource collections below.</p></div></div>
+      <div class="pdf-library-controls library-inner-controls">
+        <label class="pdf-library-field">MEDIUM
+          <select id="libraryMedium"><option value="Malayalam">Malayalam</option><option value="English" selected>English</option><option value="Tamil">Tamil</option><option value="Kannada">Kannada</option></select>
+        </label>
+        <label class="pdf-library-field">SUBJECT
+          <select id="librarySubject"><option value="all">All subjects</option></select>
+        </label>
+        <label class="pdf-library-field">SEARCH SUBJECTS
+          <input id="librarySearch" type="search" placeholder="Search a subject…">
+        </label>
+      </div>
+      <div class="pdf-library-results" id="libraryResults" aria-live="polite"></div>
+      <div class="library-embedded-resources" id="libraryEmbeddedResources" hidden>
+        <div class="library-embed-head"><div><span class="eyebrow">RESOURCE VIEWER</span><h4 id="libraryEmbedTitle">Study resources</h4><p>Resource page displayed inside NIRVO.</p></div><button type="button" id="libraryCloseEmbed" class="library-back">Close viewer ✕</button></div>
+        <div class="library-embed-tabs"><button type="button" data-source="bio" class="active">BioVision resources</button><button type="button" data-source="scert">SCERT textbooks</button></div>
+        <iframe id="libraryResourceFrame" title="Study resources inside NIRVO" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <p class="pdf-library-note">BioVision is an independent study-resource provider. SCERT is the Kerala State Council of Educational Research and Training. Resource availability varies by subject and medium; check the textbook edition before studying.</p>
+    </div>
   </section>
   <section class="provided-downloads" id="term2-plans"><div class="download-heading"><div><span class="eyebrow">SHARED STUDY RESOURCES</span><h2>30-day second-term <em>revision plans.</em></h2><p>Class-wise PDFs from the shared MS SOLUTIONS Drive folder. These are fixed source plans; compare them with your current textbook and school timetable.</p></div><span class="download-count">6 CLASS PLANS <i>↓</i></span></div><div class="provided-plan-grid"><article class="provided-plan"><span class="provided-plan-class">CLASS 5</span><h3>Second-term revision</h3><p>30-day study plan · PDF</p><a href="downloads/revision-plan-class-5-term-2.pdf" download>Download plan <b>↓</b></a></article><article class="provided-plan"><span class="provided-plan-class">CLASS 6</span><h3>Second-term revision</h3><p>30-day study plan · PDF</p><a href="downloads/revision-plan-class-6-term-2.pdf" download>Download plan <b>↓</b></a></article><article class="provided-plan"><span class="provided-plan-class">CLASS 7</span><h3>Second-term revision</h3><p>30-day study plan · PDF</p><a href="downloads/revision-plan-class-7-term-2.pdf" download>Download plan <b>↓</b></a></article><article class="provided-plan"><span class="provided-plan-class">CLASS 8</span><h3>Second-term revision</h3><p>30-day study plan · PDF</p><a href="downloads/revision-plan-class-8-term-2.pdf" download>Download plan <b>↓</b></a></article><article class="provided-plan"><span class="provided-plan-class">CLASS 9</span><h3>Second-term revision</h3><p>30-day study plan · PDF</p><a href="downloads/revision-plan-class-9-term-2.pdf" download>Download plan <b>↓</b></a></article><article class="provided-plan provided-plan-featured"><span class="provided-plan-class">SSLC · CLASS 10</span><h3>Second-term revision</h3><p>30-day plan · three hours per day · PDF</p><a href="downloads/revision-plan-sslc-class-10-term-2.pdf" download>Download SSLC plan <b>↓</b></a></article></div><small class="provided-plan-source">Files shared in <a href="https://drive.google.com/drive/folders/1GHQRiZmAeblHZoHsnBTq_sR3KG9k0CGb?usp=sharing" target="_blank" rel="noopener noreferrer">MS SOLUTIONS on Google Drive</a>. The original PDF identifies this as a fixed second-term plan, not a live or personalized timetable.</small></section>
   <section class="document-panel"><div><span class="eyebrow">OPTIONAL WORK REVIEW</span><h2 data-i18n-extra="docTitle">Bring a paper you’re working through.</h2><p>Select a clear image of one page to ask Nirvo AI for feedback. The image is sent to Cloudflare Workers AI for analysis and is not saved by this site. Do not send names, school IDs, contact details or other private information. PDF upload review is not supported yet.</p></div><label class="upload-box"><span class="upload-symbol">＋</span><b data-i18n-extra="paperLabel">Choose a paper to preview</b><small>JPG or PNG · preview stays here until you request AI feedback</small><input type="file" id="paperInput" accept="image/jpeg,image/png,image/webp" capture="environment" multiple></label><div class="file-previews" id="paperPreviews"></div><div class="review-consent"><label><input type="checkbox" id="reviewConsent"> I understand that sending this image shares it with Cloudflare Workers AI. I have removed personal details and, if needed, asked my parent/guardian.</label><button type="button" id="reviewImage" class="button primary" disabled>Ask AI to review image</button><span id="reviewStatus" aria-live="polite"></span></div></section>
