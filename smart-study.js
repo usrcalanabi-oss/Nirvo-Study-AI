@@ -35,7 +35,7 @@ if(!diagnostic||diagnostic.grade!==$('smartClass').value||!chosen.includes(diagn
 alert('Complete one five-question practice quiz for this class and one selected subject first. Your quiz result will help NIRVO start your study plan.');$('quiz').scrollIntoView({behavior:'smooth',block:'start'});return;
 }
 const focusOne=$('scienceFocusOne').value,focusTwo=$('scienceFocusTwo').value;
-if(focusOne&&focusTwo&&focusOne===focusTwo){alert('Choose two different science subjects.');return}
+if(focusOne&&focusTwo&&focusOne===focusTwo){alert('Choose two different science subjects.');return}if(focusOne&&!chosen.includes(focusOne))chosen.push(focusOne);if(focusTwo&&!chosen.includes(focusTwo))chosen.push(focusTwo);
 const daily=Number($('smartHours').value),start=min($('smartSchoolEnd').value)+35,end=min($('smartBed').value)-35;
 if(end<=start){alert('Adjust school finish and bedtime to create an evening study window.');return}
 const topics={};chosen.forEach(s=>topics[s]=[]);
@@ -70,7 +70,7 @@ $('smartProgressSummary').textContent='Weekly progress: '+done+'/'+total+' sessi
 $('smartPlanOutput').querySelectorAll('[data-task]').forEach(c=>c.addEventListener('change',()=>{data.tasks[c.dataset.task]=c.checked;save();renderPlan()}));
 $('downloadSmartPlan').disabled=false;
 }
-$('smartClass').addEventListener('change',renderSubjects);
+$('smartClass').addEventListener('change',()=>{renderSubjects();const q=$('quizClass');if(q&&[...q.options].some(o=>o.value===$('smartClass').value)){q.value=$('smartClass').value;q.dispatchEvent(new Event('change'))}});$('smartBoard').addEventListener('change',()=>{const b=$('quizBoard');if(b&&[...b.options].some(o=>o.value===$('smartBoard').value)){b.value=$('smartBoard').value;b.dispatchEvent(new Event('change'))}});
 $('buildSmartPlan').addEventListener('click',createPlan);
 $('downloadSmartPlan').addEventListener('click',()=>{
 if(!data.plan)return;const p=data.plan,lines=['NIRVO SMART STUDY PLAN',p.grade+' · '+p.board+' · '+p.language,'Subjects: '+p.subjects.join(', '),'','WEEKLY TIMETABLE',...p.week.flatMap(d=>['',d.day,...d.tasks.map(t=>t.from+'–'+t.to+' | '+t.subject+' | '+t.topic+' | '+t.minutes+' min')])];
