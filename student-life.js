@@ -38,11 +38,11 @@ const routine=plans[type];$('workoutPlan').innerHTML='<b>'+days+' days each week
 $('buildWellnessPlan').addEventListener('click',buildWorkout);buildWorkout();
 const videos={
 study:{id:'1oDrJba2PSs',title:'Study With Me · Pomodoro focus session · Lofi Girl'},
-science:{id:'74cOUSKXMz0',title:'3-hour study / learning focus session · iCanStudy'},
-health:{id:'wYxDJOFgDw0',title:'Gentle study-break movement / session inspiration'},
-money:{id:'wYxDJOFgDw0',title:'A calm focus session — use the break to learn budgeting basics'},
-motivation:{id:'1oDrJba2PSs',title:'Build focus one session at a time · Lofi Girl'},
-sports:{id:'74cOUSKXMz0',title:'Focus session — take a movement break and practise a sport'}
+science:{id:'AkFi90lZmXA',title:'Inside your computer · TED-Ed'},
+health:{id:'eEWa7cpiyD8',title:'Do you really need to take 10,000 steps a day? · TED-Ed'},
+money:{id:'3la4371mRjM',title:'Budgeting and saving · Khan Academy'},
+motivation:{id:'g6BtbIiJ_rc',title:'A+ Student Mentality · Motivation2Study'},
+sports:{id:'JlqzSTigJ4Q',title:'5 effective beginner football skills · Unisport'}
 };
 $('loadVideo').addEventListener('click',()=>{const v=videos[$('videoCategory').value];$('lifeVideoFrame').src='https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0';$('videoCaption').textContent=v.title});
 document.querySelectorAll('.life-music-choice').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.life-music-choice').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('spotifyFrame').src='https://open.spotify.com/embed/playlist/'+b.dataset.playlist+'?utm_source=generator&theme=0'}));
