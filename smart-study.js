@@ -31,7 +31,8 @@ function createPlan(){
 const chosen=[...$('smartSubjects').querySelectorAll('[aria-pressed="true"]')].map(b=>b.dataset.sub);
 if(!chosen.length){alert('Select at least one subject.');return}
 let diagnostic=null;try{diagnostic=JSON.parse(localStorage.getItem('nirvo-last-quiz')||'null')}catch{}
-if(!diagnostic||diagnostic.grade!==$('smartClass').value||!chosen.includes(diagnostic.subject)){
+const diagnosticSubject=diagnostic?.subject==='Science'?'Basic Science':diagnostic?.subject==='Social Science'?(chosen.includes('Social Science I')?'Social Science I':chosen.includes('Social Science II')?'Social Science II':'Social Science'):diagnostic?.subject==='Malayalam'?(chosen.includes('Malayalam I')?'Malayalam I':'Malayalam II'):diagnostic?.subject;
+if(!diagnostic||diagnostic.grade!==$('smartClass').value||!chosen.includes(diagnosticSubject)){
 alert('Complete one five-question practice quiz for this class and one selected subject first. Your quiz result will help NIRVO start your study plan.');$('quiz').scrollIntoView({behavior:'smooth',block:'start'});return;
 }
 const focusOne=$('scienceFocusOne').value,focusTwo=$('scienceFocusTwo').value;
