@@ -65,3 +65,16 @@ Open the localhost URL printed by Vercel. Press `Ctrl+C` to stop the local serve
 
 Vercel is used because this project has server-side `/api` routes. GitHub Pages cannot run those routes. Vercel automatically deploys commits from the connected GitHub repository; environment-variable changes require a new deployment.
 
+
+### Troubleshooting: “Failed to fetch” during sign-up or sign-in
+
+This message is a browser network failure, not proof that the password is wrong. Check in this order:
+
+1. Open the Supabase dashboard and confirm the project matching the URL in `supabase-config.js` is active and not paused.
+2. In Supabase → Project Settings → API, copy the Project URL and the **publishable** key again. Both values must belong to the same project. Keep secret/service-role keys out of browser code.
+3. In a browser, open `https://YOUR-PROJECT-REF.supabase.co/auth/v1/health`. A response from the host indicates the project host is reachable; a DNS/network error suggests a connectivity or project-host issue.
+4. Check that the browser has internet access and temporarily disable content blockers/VPN filtering that may block `*.supabase.co`. Try another network if necessary.
+5. In Supabase → Authentication → URL Configuration, confirm the deployed NIRVO domain is an allowed redirect URL.
+6. Retry sign-up. If the request reaches Supabase but fails, the form should show the actual Supabase error (for example, an existing account or email delivery issue).
+
+Do not share passwords, secret keys, service-role keys, or verification links when troubleshooting.
