@@ -302,3 +302,27 @@ footer{display:none}
 @media(prefers-reduced-motion:reduce){
   body[data-nirvo-page] main>[data-nirvo-page]:not(.nirvo-page-hidden){animation:none}
 }
+
+
+/* NIRVO refined interaction and page hierarchy */
+.nirvo-app-nav:before{content:"NIRVO";display:block;padding:7px 10px 12px;color:#91a0b5;font:800 9px 'DM Sans',sans-serif;letter-spacing:2.2px}
+.nirvo-app-nav:after{content:"CREATE · BUILD · SOLVE";display:block;margin-top:auto;padding:12px 7px 5px;border-top:1px solid #edf1f7;color:#9aa8ba;font:700 7px 'DM Sans',sans-serif;letter-spacing:1px;text-align:center}
+.nirvo-nav-item:focus-visible{outline:3px solid #9fc3f5;outline-offset:2px}
+.nirvo-nav-item span:last-child{white-space:nowrap}
+.metric-card,.quick-card,.panel,.welcome-card,.life-card,.document-panel,.nirvo-story{transition:box-shadow .25s ease,border-color .25s ease,transform .25s ease}
+.metric-card:hover,.quick-card:hover,.panel:hover,.life-card:hover{box-shadow:0 16px 38px rgba(32,58,96,.075);border-color:#d6e2f3}
+.quick-link{transition:background .2s ease,transform .2s ease}
+.quick-link:hover{background:#f5f8fe;transform:translateX(3px)}
+.button,.life-button,.text-button{transition:transform .2s ease,box-shadow .2s ease}
+.button:hover,.life-button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(41,93,163,.15)}
+.nirvo-page-hidden{visibility:hidden;pointer-events:none}
+.nirvo-app-nav .nirvo-nav-item[data-page="contact"]{margin-top:0}
+@media(max-width:760px){
+ .nirvo-app-nav:before,.nirvo-app-nav:after{display:none}
+ .nirvo-nav-item[data-page="contact"]{display:none}
+ .nirvo-app-nav{justify-content:flex-start}
+ .nirvo-nav-item{flex:1 0 68px}
+}
+@media(hover:none){
+ .metric-card:hover,.quick-card:hover,.panel:hover,.life-card:hover{transform:none;box-shadow:none}
+}
