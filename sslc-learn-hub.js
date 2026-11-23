@@ -51,8 +51,7 @@
   });
   $('learnOpenResources').addEventListener('click',()=>{
     window.open(part1,'_blank','noopener,noreferrer');
-    window.open(part2,'_blank','noopener,noreferrer');
-    status.textContent='Opened the official SCERT Kerala Standard X Part 1 and Part 2 textbook lists. Find '+subject.value+' and confirm the edition and medium used by your school.';
+    status.textContent='Opened the official SCERT Kerala Standard X Part 1 textbook list. Part 2 is also published on the SCERT website. Find '+subject.value+' and confirm the edition and medium used by your school.';
   });
   $('learnMakeNotes').addEventListener('click',()=>{
     const title=manual.value.trim()||chapter.value;
