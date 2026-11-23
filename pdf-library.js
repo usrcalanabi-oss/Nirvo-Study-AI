@@ -31,6 +31,8 @@
     </div>
     <div id="nirvoLocalResourceContent" class="nirvo-local-resource-content" aria-live="polite"></div>`;
   const content=viewer.querySelector('#nirvoLocalResourceContent');
+  const libraryNote=root.querySelector('.pdf-library-note');
+  if(libraryNote)libraryNote.textContent='NIRVO internal library: notes, approved textbook PDFs and practice materials will be hosted and viewed here. No BioVision, SCERT or other external page is opened from this library.';
   function openClass(grade){
     activeGrade=grade;home.hidden=true;page.hidden=false;gradeTitle.textContent='Class '+grade;
     count.textContent=subjects[grade].length+' SUBJECTS';
