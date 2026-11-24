@@ -7,7 +7,7 @@ export default async function handler(request,response){
   response.setHeader('Cache-Control','no-store');
   response.setHeader('X-Content-Type-Options','nosniff');
   if(request.method!=='POST'){response.setHeader('Allow','POST');return response.status(405).json({error:'Use POST to review an image.'})}
-  if(!await authenticatedUser(request))return response.status(401).json({error:'Sign in to request image feedback.'});
+  if(!await authenticatedUser(request))return response.status(401).json({error:'Your private student space is not connected. Refresh the page to reconnect.'});
   if(!cloudflareAiConfigured())return response.status(503).json({error:'The free AI connection is not configured yet.'});
   try{
     const body=typeof request.body==='string'?JSON.parse(request.body):request.body||{};
