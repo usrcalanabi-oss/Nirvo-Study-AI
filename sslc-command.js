@@ -35,7 +35,7 @@ function generatePlan(){
  d.daily=chosen.map((x,i)=>({id:x.id,subject:x.subject,name:x.name,minutes:Math.floor(mins/chosen.length),done:false}));save();renderDaily();
 }
 function renderDaily(){
- $('scDailyPlan').innerHTML=(d.daily||[]).map((x,i)=>'<label class="sc-plan-item"><input type="checkbox" data-daily="'+i+'" '+(x.done?'checked':'')+'><span><b>'+esc(x.subject)+'</b> · '+esc(x.name)+'</span><small>'+x.minutes+' min</small></label>').join('')||'<p class="suite-muted">Add chapters, then generate today's plan.</p>';
+ $('scDailyPlan').innerHTML=(d.daily||[]).map((x,i)=>'<label class="sc-plan-item"><input type="checkbox" data-daily="'+i+'" '+(x.done?'checked':'')+'><span><b>'+esc(x.subject)+'</b> · '+esc(x.name)+'</span><small>'+x.minutes+' min</small></label>').join('')||'<p class="suite-muted">Add chapters, then generate your daily plan.</p>';
  $('scDailyPlan').querySelectorAll('[data-daily]').forEach(c=>c.onchange=()=>{const x=d.daily[+c.dataset.daily];x.done=c.checked;if(c.checked){addXP(5);if(!d.completedDays.includes(today()))d.completedDays.push(today())}save();renderDaily();renderAchievements()});
 }
 function renderAchievements(){
