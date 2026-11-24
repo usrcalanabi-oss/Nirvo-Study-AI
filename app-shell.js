@@ -92,7 +92,7 @@
       document.body.dataset.nirvoPage=page;
       if(updateHash && history.replaceState) history.replaceState(null,'',page==='home'?'#overview':'#'+page);
       document.title='NIRVO · '+(pageNames[page]||'Study AI');
-      window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+      window.scrollTo({top:0,behavior:'auto'});
     };
 
     nav.addEventListener('click',e=>{
@@ -116,7 +116,7 @@
       e.preventDefault();
       show(page);
       if(targetId!=='overview' && targetId!=='aboutNirvo') {
-        requestAnimationFrame(()=>document.getElementById(targetId)?.scrollIntoView({behavior:'smooth',block:'start'}));
+        requestAnimationFrame(()=>document.getElementById(targetId)?.scrollIntoView({behavior:'auto',block:'start'}));
       }
     });
 
