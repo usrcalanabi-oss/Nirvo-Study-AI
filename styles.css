@@ -411,3 +411,15 @@ footer{display:none}
 @media(prefers-reduced-motion:reduce){
  .focus-progress span{transition:none}
 }
+
+/* NIRVO on-device AI */
+#aiStatus{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#aiStatus>span:nth-child(2){flex:1;min-width:170px}
+#localAiLoad{white-space:nowrap}
+#localAiLoad:disabled{opacity:.65;cursor:wait}
+.local-ai-progress{height:4px;background:#e9eef7;border-radius:10px;overflow:hidden;margin-top:8px;width:100%}
+.local-ai-progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#316ac6,#18a9b9);transition:width .25s}
+.local-ai-note{font-size:9px;color:#8290a4;line-height:1.6;margin:7px 0 0}
+.chat-compose button:disabled{opacity:.5;cursor:wait}
+.chat-bubble.assistant{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){#aiStatus{align-items:flex-start}#localAiLoad{width:100%}}
