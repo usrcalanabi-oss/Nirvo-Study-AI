@@ -8,7 +8,7 @@ const SUBJECTS=['Mathematics','Science','Physics','Chemistry','Biology','English
 export default async function handler(request,response){
   response.setHeader('Cache-Control','no-store');
   if(request.method!=='POST'){response.setHeader('Allow','POST');return response.status(405).json({error:'Use POST to create a quiz.'})}
-  if(!await authenticatedUser(request))return response.status(401).json({error:'Sign in before generating an AI quiz.'});
+  if(!await authenticatedUser(request))return response.status(401).json({error:'Your private student space is not connected. Refresh the page to reconnect.'});
   if(!cloudflareAiConfigured())return response.status(503).json({error:'The free AI connection is not configured yet.'});
   try{
     const body=typeof request.body==='string'?JSON.parse(request.body):request.body||{};
