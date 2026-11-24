@@ -9,7 +9,7 @@ export default async function handler(request,response){
   response.setHeader('X-Content-Type-Options','nosniff');
   if(request.method!=='POST'){response.setHeader('Allow','POST');return response.status(405).json({error:'Use POST for study questions.'})}
   const user=await authenticatedUser(request);
-  if(!user)return response.status(401).json({error:'Sign in to use the study AI.'});
+  if(!user)return response.status(401).json({error:'Your private student space is not connected. Refresh the page to reconnect.'});
   if(!cloudflareAiConfigured())return response.status(503).json({error:'The NIRVO AI model service is not configured. The site cannot generate answers until its model host is connected.'});
   try{
     const body=typeof request.body==='string'?JSON.parse(request.body):request.body||{};
