@@ -326,3 +326,88 @@ footer{display:none}
 @media(hover:none){
  .metric-card:hover,.quick-card:hover,.panel:hover,.life-card:hover{transform:none;box-shadow:none}
 }
+
+
+/* NIRVO Focus Studio — calm, premium study workspace */
+.nirvo-focus-room,.nirvo-contact-page{min-height:calc(100vh - 170px);padding:clamp(8px,1.5vw,20px) 0 30px}
+.focus-hero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:space-between;min-height:240px;padding:clamp(25px,4vw,48px);border:1px solid #dfe9f6;border-radius:22px;background:linear-gradient(115deg,#f8fbff 0%,#edf4ff 56%,#e9f5f6 100%)}
+.focus-hero-copy{position:relative;z-index:2;max-width:560px}
+.focus-kicker{font-size:9px;font-weight:800;letter-spacing:2px;color:#6482a8}
+.focus-hero h1,.contact-hero h1{font:500 clamp(34px,4vw,49px)/1.08 var(--serif);letter-spacing:-1px;color:#1b3153;margin:14px 0 10px}
+.focus-hero h1 em,.contact-hero h1 em{font-weight:400;color:#3975c7}
+.focus-hero p,.contact-hero p{font-size:12px;line-height:1.8;color:#7c8ba1;max-width:460px;margin:0}
+.focus-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.focus-tags span{padding:7px 10px;border:1px solid #dce6f3;border-radius:30px;background:#ffffffa8;color:#71839d;font-size:8px}
+.focus-orb{position:relative;flex:0 0 190px;width:190px;height:190px;margin-right:5%;border:1px solid #c9d9ed;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#ffffff 0,#e5effb 62%,#dceaf5 100%);box-shadow:0 18px 45px #31547c16}
+.focus-orb:before,.focus-orb:after{content:"";position:absolute;inset:17px;border:1px solid #b9cde5;border-radius:50%;transform:rotate(35deg) scaleX(.58)}
+.focus-orb:after{transform:rotate(-35deg) scaleX(.58);border-color:#b9d9dc}
+.focus-orb span{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:#1b3459;color:#fff;font:800 26px Manrope;box-shadow:0 10px 24px #1b345933}
+.focus-orb i,.focus-orb b{position:absolute;width:8px;height:8px;border-radius:50%;background:#39aeba;top:23px;right:37px;box-shadow:0 0 0 6px #39aeba18}
+.focus-orb b{background:#5688ca;top:auto;right:auto;bottom:27px;left:37px}
+.focus-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(230px,.65fr);gap:15px;margin-top:16px}
+.focus-timer-card,.focus-stat-card,.focus-intention{background:#fff;border:1px solid #e5ebf3;border-radius:18px;box-shadow:0 12px 35px rgba(35,58,91,.045)}
+.focus-timer-card{padding:clamp(18px,3vw,30px);text-align:center}
+.focus-card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#8492a7;font-size:8px;font-weight:800;letter-spacing:1.4px}
+.focus-live{display:flex;align-items:center;gap:7px;color:#7f9b92;font-size:7px;letter-spacing:.8px}
+.focus-live i{width:6px;height:6px;border-radius:50%;background:#42ae8c}
+.focus-live.is-running i{background:#e5a45e;box-shadow:0 0 0 4px #e5a45e22}
+.focus-mode{display:flex;justify-content:center;gap:7px;margin:25px 0 12px}
+.focus-mode-btn{padding:8px 12px;border:1px solid #e6ebf2;border-radius:30px;background:#fff;color:#8390a3;font:600 9px 'DM Sans',sans-serif;cursor:pointer}
+.focus-mode-btn.active{background:#edf4ff;border-color:#cbdcf2;color:#3268ae}
+.focus-clock{font:500 clamp(62px,9vw,94px)/1 Manrope,sans-serif;letter-spacing:-5px;color:#1b3153;font-variant-numeric:tabular-nums;margin:22px 0 17px}
+.focus-progress{height:5px;max-width:430px;margin:0 auto 24px;background:#edf1f7;border-radius:10px;overflow:hidden}
+.focus-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#3975c7,#4cb9bd);border-radius:10px;transition:width .3s linear}
+.focus-task-label{display:block;text-align:left;max-width:430px;margin:0 auto 7px;color:#8290a4;font-size:8px;font-weight:800;letter-spacing:1px}
+.focus-task-input{display:block;width:100%;max-width:430px;height:43px;margin:0 auto;border:1px solid #e5ebf2;border-radius:9px;padding:0 12px;color:#344965;background:#fbfcfe;font:11px 'DM Sans',sans-serif;outline:0}
+.focus-task-input:focus{border-color:#9bb8df;box-shadow:0 0 0 3px #eaf2fc}
+.focus-controls{display:flex;justify-content:center;gap:9px;margin-top:16px}
+.focus-controls button{min-height:40px;border-radius:9px;padding:0 18px;font:700 10px 'DM Sans',sans-serif;cursor:pointer}
+.focus-start{min-width:155px;border:0;background:#244d82;color:#fff;box-shadow:0 7px 18px #244d822b}
+.focus-start span{margin-left:18px;color:#b8d7ff}
+.focus-reset{border:1px solid #e4eaf2;background:#fff;color:#77869c}
+.focus-hint{min-height:14px;margin:14px 0 0;color:#95a0b0;font-size:8px;line-height:1.6}
+.focus-side{display:grid;grid-template-rows:auto 1fr;gap:12px}
+.focus-stat-card{padding:20px 22px}
+.focus-side-label{display:block;color:#8a98ab;font-size:8px;font-weight:800;letter-spacing:1.2px}
+.focus-stat-card strong{display:block;color:#24466f;font:600 37px Manrope;margin:10px 0 3px}
+.focus-stat-card small{color:#9aa5b4;font-size:8px}
+.focus-intention{position:relative;overflow:hidden;padding:23px;background:linear-gradient(145deg,#1b3154,#243f67);color:#fff}
+.focus-intention h2{max-width:230px;font:500 25px/1.2 var(--serif);margin:16px 0 9px}
+.focus-intention p{max-width:230px;color:#b9c8db;font-size:9px;line-height:1.8}
+.focus-intention .focus-side-label{color:#9eb6d2}
+.focus-spark{position:absolute;right:19px;bottom:14px;color:#63c5ca;font-size:32px}
+.contact-hero{padding:clamp(28px,5vw,55px);border-radius:22px;border:1px solid #e2eaf5;background:linear-gradient(115deg,#f7faff,#edf5fb);text-align:center}
+.contact-hero p{margin:0 auto}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.contact-grid article{padding:26px;border:1px solid #e6ecf4;border-radius:17px;background:#fff}
+.contact-grid article>span{color:#8b9ab0;font-size:8px;font-weight:800;letter-spacing:1.4px}
+.contact-grid h2{font:500 25px var(--serif);color:#263d5e;margin:15px 0 8px}
+.contact-grid p{font-size:10px;line-height:1.8;color:#8491a4;max-width:390px}
+.contact-home-link{display:inline-flex;gap:20px;align-items:center;margin-top:13px;color:#3975c7;font-size:9px;font-weight:700;text-decoration:none}
+.contact-signature{margin-top:26px;padding-top:13px;border-top:1px solid #edf0f5;color:#8a9bb2;font-size:8px;font-weight:800;letter-spacing:1.6px}
+@media(max-width:760px){
+ .nirvo-focus-room,.nirvo-contact-page{min-height:auto;padding-top:5px}
+ .focus-hero{min-height:205px;padding:23px 19px}
+ .focus-hero h1,.contact-hero h1{font-size:35px}
+ .focus-hero p,.contact-hero p{font-size:10px;max-width:290px}
+ .focus-orb{position:absolute;right:-48px;top:45px;opacity:.34;transform:scale(.8)}
+ .focus-layout{grid-template-columns:1fr;gap:10px}
+ .focus-timer-card{padding:19px 13px}
+ .focus-card-top{align-items:flex-start;flex-direction:column}
+ .focus-clock{font-size:76px;margin:20px 0 16px}
+ .focus-side{grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+ .focus-stat-card,.focus-intention{padding:17px}
+ .focus-intention h2{font-size:20px}
+ .focus-intention p{font-size:8px}
+ .contact-hero{padding:30px 18px}
+ .contact-grid{grid-template-columns:1fr;gap:10px}
+ .contact-grid article{padding:20px}
+}
+@media(max-width:390px){
+ .focus-side{grid-template-columns:1fr}
+ .focus-clock{font-size:68px}
+ .focus-tags span{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .focus-progress span{transition:none}
+}
