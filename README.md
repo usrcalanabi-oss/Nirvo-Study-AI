@@ -1,80 +1,26 @@
-# Nirvo Study AI
+# NIRVO Study AI
 
-Nirvo is a study-planning website with a Cloudflare Workers AI connection. The planner and PDF downloads work without an AI account. With Supabase anonymous authentication and Cloudflare configured, students can ask study questions, generate five-question practice quizzes, and request feedback on a selected image without entering an email or password.
+NIRVO Study AI includes an optional on-device language model for study chat. It does not require an OpenAI, Cloudflare, or other paid AI API key.
 
-## Honest feature notes
+## On-device AI
 
-- The AI generates explanations and questions; it does not certify syllabus accuracy. Check answers against the current textbook and teacher guidance.
-- Live web search is an optional feature in the Study AI chat. It uses Cloudflare Web Search API through AI Gateway, not the free Workers AI daily allocation. It requires AI Gateway credits or a search-provider key configured on the gateway; searches may incur separate charges. Students should leave the switch off unless the account owner has configured and approved this service. Automatic chapter-name lookup is separate; students should enter the chapter title from their textbook. Nirvo must not present model-generated chapter names as verified facts.
-- Image feedback can misread handwriting or marks. It is not official grading or a verified progress-card assessment. The selected image is sent to Cloudflare for analysis and is not saved by Nirvo.
-- Cloudflare Workers AI has a free daily allocation of 10,000 Neurons. When the daily allowance or service capacity is exhausted, AI requests can fail until availability returns. Do not upgrade to a paid plan if you need to keep this free.
-- AI requests are capped at 20 per anonymous student profile per UTC day through the Supabase SQL setup. Anonymous profiles are private to their Supabase user ID; the browser keeps the session. Clearing browser data can make that anonymous profile unrecoverable.
+- The chat model is downloaded from the public WebLLM model repository the first time a student chooses **Load NIRVO AI**.
+- The selected Qwen2 0.5B quantized model is approximately 945 MB of model memory according to the WebLLM model catalogue. Use Wi-Fi and make sure the device has enough free storage and memory.
+- Once downloaded and cached, inference runs in the browser using WebGPU. Prompts are processed locally; they are not sent to an AI chat API.
+- The model requires a compatible browser/device with WebGPU. Some phones, browsers, school devices, or low-memory devices may not support it.
+- A small built-in offline helper remains available when WebGPU is unavailable. It is a limited rule-based helper, not a generative AI model.
+- Small on-device models can make mistakes and may be weaker in Malayalam/Hindi than English. Verify formulas, textbook facts and exam answers with the current textbook and teacher.
 
-Because this project is made by a Class 10 student, ask a parent or guardian to help create and manage provider accounts, review service terms, and configure secrets. Never put a Cloudflare API token, OpenAI key, or Supabase secret/service-role key in browser code, GitHub, or chat.
+## Student memory
 
-## 1. Configure Cloudflare Workers AI
+The planner and saved study profile use the existing Supabase anonymous-session setup. Students do not need to create an email/password account. The browser's anonymous session is needed to reconnect to the same Supabase profile; clearing browser data may make it unrecoverable.
 
-1. In Cloudflare, open **Workers AI** and choose **Use REST API**.
-2. Choose **Create a Workers AI API Token** and copy the token privately. If creating a custom token, Cloudflare's REST setup guide says it needs **Workers AI Read** and **Workers AI Edit** permissions.
-3. Copy the Cloudflare **Account ID** from the Workers AI page.
-4. In Vercel, open the Nirvo project → **Settings → Environment Variables**. Add these server-side variables (do not use a `NEXT_PUBLIC_` prefix):
+## Privacy
 
-   - `CLOUDFLARE_ACCOUNT_ID` = the Cloudflare Account ID
-   - `CLOUDFLARE_API_TOKEN` = the private token
-   - `CLOUDFLARE_AI_MODEL` = `@cf/meta/llama-3.3-70b-instruct-fp8-fast`
+- The local chat model processes prompts on the student's device after the model files are downloaded.
+- Model files are downloaded from the WebLLM/Hugging Face hosting infrastructure.
+- Supabase is separate and stores only the student profile/progress that the website syncs. Do not enter passwords, private contact details or sensitive personal information into study chat.
 
-   Set the environment to **Production and Preview**. Keep the token private. Never put it in `supabase-config.js`.
+## Developer notes
 
-5. Keep the existing Supabase server variables in Vercel:
-
-   - `SUPABASE_URL` = your Supabase project URL, without `/rest/v1/`
-   - `SUPABASE_ANON_KEY` = your public `sb_publishable_...` key
-
-6. Redeploy the Vercel project so the new server variables take effect.
-
-The site uses Cloudflare's OpenAI-compatible chat-completions endpoint for study chat and quizzes, and its Llama Vision model endpoint for image feedback. The first use of the vision model may require the account owner to accept Meta's model terms in Cloudflare. Do that with a parent/guardian before using image feedback.
-
-### Optional: enable Internet Search
-
-1. In Cloudflare, open AI Gateway and use the `default` gateway (or set `CLOUDFLARE_AI_GATEWAY_ID`).
-2. Ensure the account has AI Gateway credits, or add a supported Ceramic.ai, Exa or Linkup provider key to the gateway. The search API is separately billed; it is not covered by the Workers AI free daily Neurons allocation.
-3. The existing `CLOUDFLARE_API_TOKEN` must include **Account → Workers AI → Read** and **Account → AI Gateway → Read** permissions. Keep it server-side in Vercel.
-4. Optional Vercel variables: `CLOUDFLARE_AI_GATEWAY_ID` (defaults to `default`), `CLOUDFLARE_WEB_SEARCH_PROVIDER` (`ceramic`, `exa` or `linkup`; defaults to `ceramic`), and `CLOUDFLARE_WEB_SEARCH_BYOK_ALIAS` if you configured a provider key alias.
-5. Redeploy. In the Study AI chat, turn on **Search the internet** when you want current web sources. The answer will show source links. If the search service is not configured, the site will display an error rather than pretending it searched.
-
-## 2. Finish Supabase sign-in and AI usage limits
-
-1. In the Supabase SQL Editor, run all of [`supabase-profiles.sql`](./supabase-profiles.sql). This creates private student-profile policies and the daily AI request limit.
-2. In Supabase Authentication → URL Configuration, add the production Vercel URL as the Site URL and as an allowed Redirect URL.
-3. Create an account on Nirvo, confirm the email if requested, and sign in. The default Supabase email service may have sending limits.
-
-## 3. Run locally
-
-Install Node.js 20+, open PowerShell in the project folder, and run:
-
-```powershell
-npm install --global vercel
-Copy-Item .env.example .env.local
-# Edit .env.local with the Cloudflare and Supabase values. Keep this file private.
-npm run dev
-```
-
-Open the localhost URL printed by Vercel. Press `Ctrl+C` to stop the local server.
-
-## Deployment
-
-Vercel is used because this project has server-side `/api` routes. GitHub Pages cannot run those routes. Vercel automatically deploys commits from the connected GitHub repository; environment-variable changes require a new deployment.
-
-
-### Troubleshooting: anonymous student memory does not connect
-
-This message is a browser network failure, not proof that the password is wrong. Check in this order:
-
-1. Open the Supabase dashboard and confirm the project matching the URL in `supabase-config.js` is active and not paused.
-2. In Supabase → Project Settings → API, copy the Project URL and the **publishable** key again. Both values must belong to the same project. Keep secret/service-role keys out of browser code.
-3. In a browser, open `https://YOUR-PROJECT-REF.supabase.co/auth/v1/health`. A response from the host indicates the project host is reachable; a DNS/network error suggests a connectivity or project-host issue.
-4. Check that the browser has internet access and temporarily disable content blockers/VPN filtering that may block `*.supabase.co`. Try another network if necessary.
-5. In Supabase → Authentication → URL Configuration, confirm the deployed NIRVO domain is an allowed redirect URL.
-6. Retry sign-up. If the request reaches Supabase but fails, the form should show the actual Supabase error (for example, an existing account or email delivery issue).
-
-Do not share passwords, secret keys, service-role keys, or verification links when troubleshooting.
+WebLLM documentation and built-in model catalogue: https://webllm.mlc.ai/
