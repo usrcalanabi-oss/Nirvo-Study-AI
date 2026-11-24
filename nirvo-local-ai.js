@@ -1,5 +1,5 @@
 const MODEL_ID='Qwen2.5-0.5B-Instruct-q4f16_1-MLC';
-const MODEL_SIZE='about 945 MB';
+const MODEL_SIZE='about 945 MB of estimated graphics memory';
 const messages=document.querySelector('#chatMessages');
 const form=document.querySelector('#chatForm');
 const input=document.querySelector('#chatInput');
@@ -58,7 +58,7 @@ async function loadModel(){
   }
   loading=(async()=>{
     loadButton.disabled=true;loadButton.textContent='Loading…';
-    setStatus('Preparing NIRVO AI',`First download: ${MODEL_SIZE}. Use Wi-Fi; the model is cached by your browser after download.`,'loading');
+    setStatus('Preparing NIRVO AI',`Model requirement: ${MODEL_SIZE}. The model files are downloaded once and cached by your browser; use Wi-Fi.`,'loading');
     let progress=document.querySelector('#nirvoAiProgress');
     if(!progress){progress=document.createElement('div');progress.id='nirvoAiProgress';progress.className='local-ai-progress';progress.innerHTML='<span></span>';statusBox?.append(progress);}
     try{
@@ -123,5 +123,5 @@ if(!('gpu' in navigator)){
   setStatus('Offline study helper available','This browser does not expose WebGPU. No AI API is connected; use the built-in quick helper or try a supported desktop browser.','fallback');
   if(loadButton)loadButton.textContent='WebGPU unavailable';
 }else{
-  setStatus('NIRVO local AI is ready to set up',`First download: ${MODEL_SIZE}. Use Wi-Fi; no API key or account connection is needed.`);
+  setStatus('NIRVO local AI is ready to set up',`Estimated graphics memory: ${MODEL_SIZE}. Model files download once and are cached; no API key is needed.`);
 }
