@@ -5,7 +5,7 @@ NIRVO Study AI includes an optional on-device language model for study chat. It 
 ## On-device AI
 
 - The chat model is downloaded from the public WebLLM model repository the first time a student chooses **Load NIRVO AI**.
-- The selected Qwen2 0.5B quantized model is approximately 945 MB of model memory according to the WebLLM model catalogue. Use Wi-Fi and make sure the device has enough free storage and memory.
+- The selected Qwen2.5 0.5B quantized model is approximately 945 MB of model memory according to the WebLLM model catalogue. Use Wi-Fi and make sure the device has enough free storage and memory.
 - Once downloaded and cached, inference runs in the browser using WebGPU. Prompts are processed locally; they are not sent to an AI chat API.
 - The model requires a compatible browser/device with WebGPU. Some phones, browsers, school devices, or low-memory devices may not support it.
 - A small built-in offline helper remains available when WebGPU is unavailable. It is a limited rule-based helper, not a generative AI model.
