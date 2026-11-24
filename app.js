@@ -10,6 +10,8 @@ document.querySelector('#paperInput').addEventListener('change',e=>{const wrap=d
 
 const notesButton=document.querySelector('#generateNotesButton');
 if(notesButton)notesButton.addEventListener('click',()=>{
+ const chatInput=document.querySelector('#chatInput');
+ const chatForm=document.querySelector('#chatForm');
  const chapter=document.querySelector('#chatChapter')?.value||document.querySelector('#quizManualChapter')?.value||'';
  const subject=document.querySelector('#chatSubject')?.value||'your selected subject';
  const grade=document.querySelector('#chatClass')?.value||'Class 10';
