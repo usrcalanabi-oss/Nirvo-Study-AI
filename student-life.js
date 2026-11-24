@@ -44,8 +44,8 @@ money:{id:'3la4371mRjM',title:'Budgeting and saving · Khan Academy'},
 motivation:{id:'g6BtbIiJ_rc',title:'A+ Student Mentality · Motivation2Study'},
 sports:{id:'JlqzSTigJ4Q',title:'5 effective beginner football skills · Unisport'}
 };
-$('loadVideo').addEventListener('click',()=>{const v=videos[$('videoCategory').value];$('lifeVideoFrame').src='https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0';$('videoCaption').textContent=v.title});
-document.querySelectorAll('.life-music-choice').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.life-music-choice').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('spotifyFrame').src='https://open.spotify.com/embed/playlist/'+b.dataset.playlist+'?utm_source=generator&theme=0'}));
+$('loadVideo').addEventListener('click',()=>{const v=videos[$('videoCategory').value];$('lifeVideoFrame').src='https://www.youtube-nocookie.com/embed/'+v.id+'?rel=0';$('videoPreview').hidden=true;$('videoCaption').textContent=v.title});
+document.querySelectorAll('.life-music-choice').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.life-music-choice').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('spotifyFrame').src='https://open.spotify.com/embed/playlist/'+b.dataset.playlist+'?utm_source=generator&theme=0';$('spotifyPreview').hidden=true}));
 
 /* NIRVO Focus Studio: local-first timer, check-ins and reflection */
 const plusKey='nirvo-focus-studio-v1';let plus={day:'',habits:{},sessions:0,streak:0,lastDay:'',win:'',improve:''};
