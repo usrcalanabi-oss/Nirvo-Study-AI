@@ -1,6 +1,6 @@
 # Nirvo Study AI
 
-Nirvo is a study-planning website with a Cloudflare Workers AI connection. The planner and PDF downloads work without an AI account. With Supabase and Cloudflare configured, signed-in students can ask study questions, generate five-question practice quizzes, and request feedback on a selected image.
+Nirvo is a study-planning website with a Cloudflare Workers AI connection. The planner and PDF downloads work without an AI account. With Supabase anonymous authentication and Cloudflare configured, students can ask study questions, generate five-question practice quizzes, and request feedback on a selected image without entering an email or password.
 
 ## Honest feature notes
 
@@ -8,7 +8,7 @@ Nirvo is a study-planning website with a Cloudflare Workers AI connection. The p
 - Live web search is an optional feature in the Study AI chat. It uses Cloudflare Web Search API through AI Gateway, not the free Workers AI daily allocation. It requires AI Gateway credits or a search-provider key configured on the gateway; searches may incur separate charges. Students should leave the switch off unless the account owner has configured and approved this service. Automatic chapter-name lookup is separate; students should enter the chapter title from their textbook. Nirvo must not present model-generated chapter names as verified facts.
 - Image feedback can misread handwriting or marks. It is not official grading or a verified progress-card assessment. The selected image is sent to Cloudflare for analysis and is not saved by Nirvo.
 - Cloudflare Workers AI has a free daily allocation of 10,000 Neurons. When the daily allowance or service capacity is exhausted, AI requests can fail until availability returns. Do not upgrade to a paid plan if you need to keep this free.
-- AI requests are also capped at 20 per signed-in account per UTC day through the Supabase SQL setup.
+- AI requests are capped at 20 per anonymous student profile per UTC day through the Supabase SQL setup. Anonymous profiles are private to their Supabase user ID; the browser keeps the session. Clearing browser data can make that anonymous profile unrecoverable.
 
 Because this project is made by a Class 10 student, ask a parent or guardian to help create and manage provider accounts, review service terms, and configure secrets. Never put a Cloudflare API token, OpenAI key, or Supabase secret/service-role key in browser code, GitHub, or chat.
 
@@ -66,7 +66,7 @@ Open the localhost URL printed by Vercel. Press `Ctrl+C` to stop the local serve
 Vercel is used because this project has server-side `/api` routes. GitHub Pages cannot run those routes. Vercel automatically deploys commits from the connected GitHub repository; environment-variable changes require a new deployment.
 
 
-### Troubleshooting: “Failed to fetch” during sign-up or sign-in
+### Troubleshooting: anonymous student memory does not connect
 
 This message is a browser network failure, not proof that the password is wrong. Check in this order:
 
