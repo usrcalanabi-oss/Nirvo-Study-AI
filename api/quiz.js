@@ -3,7 +3,7 @@ import { cloudflareAiConfigured, cloudflareChat } from '../lib/cloudflare-ai.js'
 import { parseJson } from './_education.js';
 
 const CLASSES=new Set(['Class 6','Class 7','Class 8','Class 9','Class 10','Class 11','Class 12']);
-const SUBJECTS=['Mathematics','Science','Physics','Chemistry','Biology','English','Social Science','Malayalam','Hindi','Computer Science','Economics'];
+const SUBJECTS=['Mathematics','Science','Physics','Chemistry','Biology','English','Social Science','Social Science I','Social Science II','Malayalam','Malayalam I','Malayalam II','Hindi','Computer Science','Economics'];
 
 export default async function handler(request,response){
   response.setHeader('Cache-Control','no-store');
